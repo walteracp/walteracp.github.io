@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAS Notes for AGECON: Basics and Fundamentals</title>
+<meta name="description" content="An introduction to SAS for agricultural economics students, with economics examples.">
+<link rel="icon" href="../files/photo.jpg">
+<script>window.MathJax = { tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+<style>
+  :root { --ink:#1a1a1a; --ink-2:#444; --ink-3:#777; --rule:#e3e3e3; --blue:#2a5298; --wash:#f6f8fb; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; color:var(--ink); background:#fff; line-height:1.65; font-size:15px; }
+  a { color: var(--blue); }
+  .top { border-bottom:1px solid var(--rule); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .top a.home { font-family: Georgia, serif; color:var(--ink); text-decoration:none; font-size:16px; }
+  .top .links a { font-size:13px; margin-left:16px; text-decoration:none; }
+  .wrap { display:grid; grid-template-columns: 250px minmax(0,1fr); gap:40px; max-width:1180px; margin:0 auto; padding:28px 24px 60px; }
+  nav.toc { position:sticky; top:16px; align-self:start; max-height:calc(100vh - 32px); overflow:auto; font-size:13px; border-right:1px solid var(--rule); padding-right:16px; }
+  nav.toc ul { list-style:none; padding:0; margin:0; }
+  nav.toc li.l1 { margin-top:10px; font-weight:600; }
+  nav.toc li.l2 { padding-left:14px; }
+  nav.toc a { color:var(--ink-2); text-decoration:none; display:block; padding:2px 0; }
+  nav.toc a:hover { color:var(--blue); }
+  header.doc h1 { font-family: Georgia, serif; font-weight:normal; font-size:30px; margin:0 0 6px; }
+  header.doc .meta { color:var(--ink-3); font-size:14px; margin-bottom:14px; }
+  .note { background:#eaf1fb; border:1px solid #c5d6ef; border-radius:4px; padding:10px 14px; font-size:13.5px; color:#1d3c6e; margin:12px 0; }
+  .actions { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px; }
+  .actions a { font-size:12px; letter-spacing:.03em; padding:5px 14px; border:1px solid var(--blue); border-radius:3px; text-decoration:none; }
+  .actions a:hover { background:var(--blue); color:#fff; }
+  main h2 { font-family: Georgia, serif; font-weight:normal; font-size:24px; border-bottom:1px solid var(--rule); padding-bottom:6px; margin:44px 0 14px; }
+  main h3 { font-size:17px; margin:30px 0 10px; }
+  main h4 { font-size:15px; margin:22px 0 8px; }
+  .num { color:var(--ink-3); margin-right:6px; }
+  main p, main li { color:var(--ink-2); }
+  code { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em; background:#f2f2f2; padding:1px 4px; border-radius:3px; }
+  .cell { margin:14px 0 18px; }
+  .code .hl { background:var(--wash); border:1px solid #e6ebf2; border-left:3px solid var(--blue); border-radius:4px; }
+  .code pre { margin:0; padding:12px 14px; overflow-x:auto; font-size:13px; line-height:1.5; font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  main > table { display:block; overflow-x:auto; max-width:100%; border-collapse:collapse; font-size:13.5px; margin:10px 0 16px; }
+  main > table th, main > table td { border-bottom:1px solid var(--rule); padding:6px 12px; text-align:left; vertical-align:top; }
+  main > table thead th { border-bottom:2px solid #bbb; color:var(--ink); }
+  .tag { display:inline-block; font-size:11px; color:#7a4d00; background:#fff4dd; border:1px solid #f0d9a8; border-radius:3px; padding:1px 8px; margin-bottom:6px; }
+  footer { color:var(--ink-3); font-size:12px; border-top:1px solid var(--rule); margin-top:50px; padding-top:14px; }
+  pre { line-height: 125%; }
+td.linenos .normal { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.hl .hll { background-color: #ffffcc }
+.hl { background: #f0f0f0; }
+.hl .c { color: #60A0B0; font-style: italic } /* Comment */
+.hl .err { border: 1px solid #F00 } /* Error */
+.hl .k { color: #007020; font-weight: bold } /* Keyword */
+.hl .o { color: #666 } /* Operator */
+.hl .ch { color: #60A0B0; font-style: italic } /* Comment.Hashbang */
+.hl .cm { color: #60A0B0; font-style: italic } /* Comment.Multiline */
+.hl .cp { color: #007020 } /* Comment.Preproc */
+.hl .cpf { color: #60A0B0; font-style: italic } /* Comment.PreprocFile */
+.hl .c1 { color: #60A0B0; font-style: italic } /* Comment.Single */
+.hl .cs { color: #60A0B0; background-color: #FFF0F0 } /* Comment.Special */
+.hl .gd { color: #A00000 } /* Generic.Deleted */
+.hl .ge { font-style: italic } /* Generic.Emph */
+.hl .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.hl .gr { color: #F00 } /* Generic.Error */
+.hl .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.hl .gi { color: #00A000 } /* Generic.Inserted */
+.hl .go { color: #888 } /* Generic.Output */
+.hl .gp { color: #C65D09; font-weight: bold } /* Generic.Prompt */
+.hl .gs { font-weight: bold } /* Generic.Strong */
+.hl .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.hl .gt { color: #04D } /* Generic.Traceback */
+.hl .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.hl .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.hl .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.hl .kp { color: #007020 } /* Keyword.Pseudo */
+.hl .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.hl .kt { color: #902000 } /* Keyword.Type */
+.hl .m { color: #40A070 } /* Literal.Number */
+.hl .s { color: #4070A0 } /* Literal.String */
+.hl .na { color: #4070A0 } /* Name.Attribute */
+.hl .nb { color: #007020 } /* Name.Builtin */
+.hl .nc { color: #0E84B5; font-weight: bold } /* Name.Class */
+.hl .no { color: #60ADD5 } /* Name.Constant */
+.hl .nd { color: #555; font-weight: bold } /* Name.Decorator */
+.hl .ni { color: #D55537; font-weight: bold } /* Name.Entity */
+.hl .ne { color: #007020 } /* Name.Exception */
+.hl .nf { color: #06287E } /* Name.Function */
+.hl .nl { color: #002070; font-weight: bold } /* Name.Label */
+.hl .nn { color: #0E84B5; font-weight: bold } /* Name.Namespace */
+.hl .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.hl .nv { color: #BB60D5 } /* Name.Variable */
+.hl .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.hl .w { color: #BBB } /* Text.Whitespace */
+.hl .mb { color: #40A070 } /* Literal.Number.Bin */
+.hl .mf { color: #40A070 } /* Literal.Number.Float */
+.hl .mh { color: #40A070 } /* Literal.Number.Hex */
+.hl .mi { color: #40A070 } /* Literal.Number.Integer */
+.hl .mo { color: #40A070 } /* Literal.Number.Oct */
+.hl .sa { color: #4070A0 } /* Literal.String.Affix */
+.hl .sb { color: #4070A0 } /* Literal.String.Backtick */
+.hl .sc { color: #4070A0 } /* Literal.String.Char */
+.hl .dl { color: #4070A0 } /* Literal.String.Delimiter */
+.hl .sd { color: #4070A0; font-style: italic } /* Literal.String.Doc */
+.hl .s2 { color: #4070A0 } /* Literal.String.Double */
+.hl .se { color: #4070A0; font-weight: bold } /* Literal.String.Escape */
+.hl .sh { color: #4070A0 } /* Literal.String.Heredoc */
+.hl .si { color: #70A0D0; font-style: italic } /* Literal.String.Interpol */
+.hl .sx { color: #C65D09 } /* Literal.String.Other */
+.hl .sr { color: #235388 } /* Literal.String.Regex */
+.hl .s1 { color: #4070A0 } /* Literal.String.Single */
+.hl .ss { color: #517918 } /* Literal.String.Symbol */
+.hl .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.hl .fm { color: #06287E } /* Name.Function.Magic */
+.hl .vc { color: #BB60D5 } /* Name.Variable.Class */
+.hl .vg { color: #BB60D5 } /* Name.Variable.Global */
+.hl .vi { color: #BB60D5 } /* Name.Variable.Instance */
+.hl .vm { color: #BB60D5 } /* Name.Variable.Magic */
+.hl .il { color: #40A070 } /* Literal.Number.Integer.Long */
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: minmax(0,1fr); gap:10px; }
+    nav.toc { position:static; max-height:none; border-right:none; border-bottom:1px solid var(--rule); padding:0 0 14px; }
+    header.doc h1 { font-size:25px; }
+  }
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="home" href="../index.html">Walter Ac-Pangan</a>
+  <div class="links"><a href="R_Notes_for_AGECON.html">R Notes</a><a href="Py_Notes_for_AGECON.html">Py Notes</a><a href="Stata_Notes_for_AGECON.html">Stata Notes</a><a href="../index.html#teaching">Teaching</a></div>
+</div>
+<div class="wrap">
+  <nav class="toc" aria-label="Contents"><strong>Contents</strong><ul><li class="l1"><a href="#s1-introduction-to-sas">1 Introduction to SAS</a></li><li class="l2"><a href="#s1-1-getting-access">1.1 Getting Access</a></li><li class="l2"><a href="#s1-2-how-sas-programs-work">1.2 How SAS Programs Work</a></li><li class="l1"><a href="#s2-the-basics">2 The Basics</a></li><li class="l2"><a href="#s2-1-comments-and-your-first-output">2.1 Comments and Your First Output</a></li><li class="l2"><a href="#s2-2-variables-and-calculations">2.2 Variables and Calculations</a></li><li class="l2"><a href="#s2-3-calculator-and-math-functions">2.3 Calculator and Math Functions</a></li><li class="l2"><a href="#s2-4-missing-values">2.4 Missing Values</a></li><li class="l2"><a href="#s2-5-logical-operators">2.5 Logical Operators</a></li><li class="l2"><a href="#s2-6-data-types-and-formats">2.6 Data Types and Formats</a></li><li class="l2"><a href="#s2-7-working-with-dates">2.7 Working with Dates</a></li><li class="l1"><a href="#s3-fundamentals">3 Fundamentals</a></li><li class="l2"><a href="#s3-1-creating-a-dataset">3.1 Creating a Dataset</a></li><li class="l2"><a href="#s3-2-creating-new-variables">3.2 Creating New Variables</a></li><li class="l2"><a href="#s3-3-if-then-else">3.3 If-Then-Else</a></li><li class="l2"><a href="#s3-4-do-loops">3.4 DO Loops</a></li><li class="l2"><a href="#s3-5-arrays">3.5 Arrays</a></li><li class="l2"><a href="#s3-6-net-present-value">3.6 Net Present Value</a></li><li class="l2"><a href="#s3-7-macros-reusable-code">3.7 Macros: Reusable Code</a></li><li class="l1"><a href="#s4-working-with-datasets">4 Working with Datasets</a></li><li class="l2"><a href="#s4-1-libraries-and-importing-data">4.1 Libraries and Importing Data</a></li><li class="l2"><a href="#s4-2-exploring-data">4.2 Exploring Data</a></li><li class="l2"><a href="#s4-3-filter-sort-and-group">4.3 Filter, Sort, and Group</a></li><li class="l2"><a href="#s4-4-merging-datasets">4.4 Merging Datasets</a></li><li class="l2"><a href="#s4-5-exporting">4.5 Exporting</a></li><li class="l1"><a href="#s5-data-visualization">5 Data Visualization</a></li><li class="l2"><a href="#s5-1-histogram-and-boxplot">5.1 Histogram and Boxplot</a></li><li class="l2"><a href="#s5-2-bar-chart">5.2 Bar Chart</a></li><li class="l2"><a href="#s5-3-supply-and-demand">5.3 Supply and Demand</a></li><li class="l1"><a href="#s6-regression">6 Regression</a></li><li class="l2"><a href="#s6-1-linear-and-multiple-regression">6.1 Linear and Multiple Regression</a></li><li class="l2"><a href="#s6-2-probit-model">6.2 Probit Model</a></li><li class="l2"><a href="#s6-3-regression-with-matrix-algebra">6.3 Regression with Matrix Algebra</a></li></ul></nav>
+  <main>
+    <header class="doc">
+      <h1>SAS Notes for AGECON: Basics and Fundamentals</h1>
+      <div class="meta">Walter Ac-Pangan, Ph.D. &middot; October 2026</div>
+      <p>These notes introduce SAS for agricultural economics, following the same topics as the <a href="R_Notes_for_AGECON.html">R Notes</a> and <a href="Py_Notes_for_AGECON.html">Py Notes for AGECON</a>. The examples are intentionally basic and use economics problems throughout.</p>
+      <div class="note">Run the examples in SAS Studio (SAS OnDemand for Academics is free for students). Results are not shown on this page: run each example yourself to see them. Every section creates its own practice data, so the code runs without any files (except the few examples marked to use your own folder). SAS shows results in the <strong>Results</strong> tab and messages in the <strong>Log</strong>.</div>
+      <div class="actions"><a href="SAS_Notes_for_AGECON.sas" download>Download the SAS script (.sas)</a></div>
+    </header>
+    <h2 id="s1-introduction-to-sas"><span class="num">1</span> Introduction to SAS</h2>
+<p>SAS is a statistical software system widely used in government agencies, agribusiness, banking, and health research. It is especially good at managing large datasets and producing reliable statistical reports. Many USDA and land-grant university analyses are done in SAS.</p>
+<h3 id="s1-1-getting-access"><span class="num">1.1</span> Getting Access</h3>
+<ul>
+<li><strong>SAS OnDemand for Academics</strong> is free for students and instructors. Create an account at <a href="https://www.sas.com/en_us/software/on-demand-for-academics.html" target="_blank" rel="noopener">https://www.sas.com/en_us/software/on-demand-for-academics.html</a> and use <strong>SAS Studio</strong> in your web browser; there is nothing to install.</li>
+<li>Your university may also provide SAS on lab computers or through a campus license.</li>
+</ul>
+<h3 id="s1-2-how-sas-programs-work"><span class="num">1.2</span> How SAS Programs Work</h3>
+<p>A SAS program is a series of <strong>steps</strong>:</p>
+<ol>
+<li><strong>DATA steps</strong> create and modify datasets. They start with <code>data</code> and end with <code>run;</code>.</li>
+<li><strong>PROC steps</strong> (procedures) analyze data: summaries, tables, graphs, and regressions. They start with <code>proc</code> and end with <code>run;</code> or <code>quit;</code>.</li>
+</ol>
+<p>Every statement ends with a <strong>semicolon</strong> <code>;</code>. Forgetting one is the most common error for beginners. To run code in SAS Studio, highlight it and click <strong>Run</strong> (or press F3). Results appear in the <strong>Results</strong> tab, and messages, including errors, appear in the <strong>Log</strong>. Always check the log!</p><h2 id="s2-the-basics"><span class="num">2</span> The Basics</h2>
+<h3 id="s2-1-comments-and-your-first-output"><span class="num">2.1</span> Comments and Your First Output</h3>
+<p>Comments explain your code and are ignored by SAS. There are two styles:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c">* This is a comment that ends with a semicolon;</span>
+<span class="cm">/* This is a block comment. It can span</span>
+<span class="cm">   several lines. */</span>
+
+<span class="k">%put </span><span class="err">Hello, AGECON!;   /* </span><span class="nb">%put</span><span class="err"> writes a </span><span class="k">message</span><span class="err"> to the log */</span>
+</pre></div>
+</div></div><h3 id="s2-2-variables-and-calculations"><span class="num">2.2</span> Variables and Calculations</h3>
+<p>In SAS, calculations happen inside a DATA step. The <code>data _null_;</code> step runs calculations without creating a dataset, and <code>put</code> writes the results to the log:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  w = <span class="m">10</span>;
+  <span class="k">x</span> = <span class="m">20</span>;
+  y = <span class="m">30</span>;
+  total = w + <span class="k">x</span> + y;
+<span class="k">  put </span><span class="s">"The total is "</span><span class="err"> total;</span>
+run;
+</pre></div>
+</div></div><p>SAS variable names are <strong>not</strong> case sensitive: <code>Price</code>, <code>price</code>, and <code>PRICE</code> refer to the same variable. Names can be up to 32 characters and must start with a letter or an underscore.</p><h3 id="s2-3-calculator-and-math-functions"><span class="num">2.3</span> Calculator and Math Functions</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  <span class="k">x</span> = <span class="m">3</span>;
+  y = <span class="m">7</span>;
+  <span class="k">add</span>      = <span class="k">x</span> + y;
+  subtract = <span class="k">x</span> - y;
+  multiply = <span class="k">x</span> * y;
+  divide   = <span class="k">x</span> / y;
+  power    = <span class="k">x</span> ** <span class="m">2</span>;          <span class="c">/* exponent */</span>
+  root     = <span class="nb">sqrt(</span><span class="k">x</span>);         <span class="c">/* square root */</span>
+  rounded  = <span class="nb">round(</span><span class="k">x</span> / y, <span class="m">0.001</span>);
+  lower    = <span class="nb">floor(</span><span class="k">x</span> / y);    <span class="c">/* largest integer &lt;= x/y */</span>
+  upper    = <span class="nb">ceil(</span><span class="k">x</span> / y);     <span class="c">/* smallest integer &gt;= x/y */</span>
+  absval   = <span class="nb">abs(</span><span class="k">x</span> - y);
+  ln_x     = <span class="nb">log(</span><span class="k">x</span>);          <span class="c">/* natural log */</span>
+  log10_x  = <span class="nb">log10(</span><span class="k">x</span>);
+  quotient = <span class="nb">int(</span><span class="m">1250</span> / <span class="m">400</span>); <span class="c">/* integer part: full truckloads */</span>
+  leftover = <span class="nb">mod(</span><span class="m">1250</span>, <span class="m">400</span>);  <span class="c">/* remainder: bushels left over */</span>
+<span class="k">  put add</span><span class="err">= subtract= multiply= divide= power= root= rounded=;</span>
+<span class="k">  put </span><span class="err">lower= upper= absval= ln_x= log10_x= quotient= leftover=;</span>
+run;
+</pre></div>
+</div></div><h3>Economics Examples</h3>
+<p>Common agricultural economics calculations: unit conversion, revenue, cost, profit, break-even price, percent change, and compound interest.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  <span class="c">/* Unit conversion: one bushel of corn = 56 lb, one lb = 0.45359237 kg */</span>
+  bushels = <span class="m">10000</span>;
+  metric_tons = bushels * <span class="m">56</span> * <span class="m">0.45359237</span> / <span class="m">1000</span>;
+<span class="k">  put </span><span class="s">"Metric tons: "</span><span class="err"> metric_tons </span><span class="m">8.2</span><span class="err">;</span>
+
+  <span class="c">/* Revenue, cost, and profit for a 500-acre corn farm */</span>
+  acres = <span class="m">500</span>; yield_bu = <span class="m">180</span>; price = <span class="m">4.25</span>; cost_per_acre = <span class="m">690</span>;
+  revenue = acres * yield_bu * price;
+  total_cost = acres * cost_per_acre;
+  profit = revenue - total_cost;
+  margin = profit / revenue * <span class="m">100</span>;
+<span class="k">  put </span><span class="s">"Revenue: "</span><span class="err"> revenue dollar12</span><span class="m">.2</span><span class="err"> </span><span class="s">"  Profit: "</span><span class="err"> profit dollar12</span><span class="m">.2</span><span class="err"> </span><span class="s">"  Margin (%): "</span><span class="err"> margin </span><span class="m">5.1</span><span class="err">;</span>
+
+  <span class="c">/* Break-even price */</span>
+  break_even = cost_per_acre / yield_bu;
+<span class="k">  put </span><span class="s">"Break-even price ($/bu): "</span><span class="err"> break_even </span><span class="m">6.2</span><span class="err">;</span>
+
+  <span class="c">/* Percent change in the soybean price */</span>
+  pct_change = (<span class="m">10.90</span> - <span class="m">13.20</span>) / <span class="m">13.20</span> * <span class="m">100</span>;
+<span class="k">  put </span><span class="s">"Percent change: "</span><span class="err"> pct_change </span><span class="m">6.1</span><span class="err">;</span>
+
+  <span class="c">/* Compound interest: FV = PV * (1 + r)**t */</span>
+  fv = <span class="m">10000</span> * (<span class="m">1</span> + <span class="m">0.04</span>) ** <span class="m">5</span>;
+<span class="k">  put </span><span class="s">"Future value: "</span><span class="err"> fv dollar12</span><span class="m">.2</span><span class="err">;</span>
+run;
+</pre></div>
+</div></div><h3 id="s2-4-missing-values"><span class="num">2.4</span> Missing Values</h3>
+<p>A missing numeric value in SAS is a period <code>.</code>, and a missing character value is a blank <code>" "</code>. Arithmetic with a missing value gives a missing result, but SAS <strong>functions</strong> such as <code>sum()</code> and <code>mean()</code> skip missing values:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  <span class="k">x</span> = .;
+  a = <span class="m">1</span> + <span class="k">x</span> + <span class="m">3</span>;        <span class="c">/* missing */</span>
+  b = <span class="nb">sum(</span><span class="m">1</span>, <span class="k">x</span>, <span class="m">3</span>);     <span class="c">/* 4: the function ignores the missing value */</span>
+  c = <span class="nb">mean(</span><span class="m">1</span>, <span class="k">x</span>, <span class="m">3</span>);    <span class="c">/* 2 */</span>
+  is_<span class="kc">missing</span> = <span class="k">missing</span>(<span class="k">x</span>);
+<span class="k">  put </span><span class="err">a= b= c= is_</span><span class="kc">missing</span><span class="err">=;</span>
+run;
+</pre></div>
+</div></div><p>Note: SAS treats a missing value as <strong>smaller than any number</strong>, so a condition like <code>if price &lt; 4 then ...</code> is also true when <code>price</code> is missing. Check for missing values explicitly when it matters.</p><h3 id="s2-5-logical-operators"><span class="num">2.5</span> Logical Operators</h3>
+<p>Comparisons return 1 (true) or 0 (false):</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  <span class="k">x</span> = <span class="m">3</span>; y = <span class="m">7</span>;
+  eq  = (<span class="k">x</span> = y);              <span class="c">/* equal (also written eq) */</span>
+  ne  = (<span class="k">x</span> ne y);             <span class="c">/* not equal (also ^=) */</span>
+  lt  = (<span class="k">x</span> &lt; <span class="m">10</span>);
+  both   = (<span class="k">x</span> &lt; <span class="m">20</span> <span class="k">and</span> y &gt;= <span class="m">50</span>);
+  either = (<span class="k">x</span> &lt; <span class="m">20</span> <span class="k">or</span> y &gt;= <span class="m">50</span>);
+  in_list = (<span class="k">x</span> <span class="k">in</span> (<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>));
+<span class="k">  put </span><span class="err">eq= ne= lt= both= either= in_list=;</span>
+run;
+</pre></div>
+</div></div><h3 id="s2-6-data-types-and-formats"><span class="num">2.6</span> Data Types and Formats</h3>
+<p>SAS has only two data types: <strong>numeric</strong> and <strong>character</strong>. Formats control how values are displayed (for example as dollars or dates) without changing the stored value.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data types;
+  <span class="k">length</span> commodity $ <span class="m">12</span>;           <span class="c">/* character variable, up to 12 characters */</span>
+  commodity = <span class="s">"Corn"</span>;
+  price = <span class="m">4.25</span>;                    <span class="c">/* numeric */</span>
+  price_text = <span class="s">"$4.25"</span>;
+  price_num = <span class="k">input</span>(<span class="nb">compress(</span>price_text, <span class="s">"$"</span>), <span class="m">8</span>.);   <span class="c">/* text -&gt; number */</span>
+  quantity = <span class="k">input</span>(<span class="s">"1,250"</span>, comma8.);                 <span class="c">/* reads the comma */</span>
+  revenue = <span class="m">382500</span>;
+  <span class="k">format</span> revenue dollar12<span class="m">.2</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=types noobs;
+<span class="kr">run;</span>
+
+<span class="kr">proc contents </span>data=types;   <span class="c">/* lists variables, types, and formats */</span>
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s2-7-working-with-dates"><span class="num">2.7</span> Working with Dates</h3>
+<p>SAS stores dates as the number of days since January 1, 1960, so you can subtract them directly. <code>intnx()</code> moves a date forward by months or years.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data dates;
+  planting   = <span class="s">'25APR2024'</span>d;
+  harvest    = <span class="s">'05OCT2024'</span>d;
+  season_days = harvest - planting;              <span class="c">/* days from planting to harvest */</span>
+  loan_start = <span class="s">'01MAR2024'</span>d;
+  maturity   = <span class="nb">intnx(</span><span class="s">'month'</span>, loan_start, <span class="m">18</span>, <span class="s">'same'</span>);   <span class="c">/* 18-month operating loan */</span>
+  harvest_year  = <span class="nb">year(</span>harvest);
+  harvest_month = <span class="nb">month(</span>harvest);
+  <span class="k">format</span> planting harvest loan_start maturity date9.;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=dates noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h2 id="s3-fundamentals"><span class="num">3</span> Fundamentals</h2>
+<h3 id="s3-1-creating-a-dataset"><span class="num">3.1</span> Creating a Dataset</h3>
+<p>The DATA step with <code>datalines</code> lets you type a small dataset directly into your program:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data crops;
+  <span class="k">input</span> crop $ acres yield price;
+<span class="k">  datalines;</span>
+<span class="x">corn     300 180 4.25</span>
+<span class="x">soybeans 200  55 10.90</span>
+<span class="x">wheat    100  50 5.60</span>
+<span class="x">;</span>
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=crops;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s3-2-creating-new-variables"><span class="num">3.2</span> Creating New Variables</h3>
+<p>New variables are created with assignment statements inside a DATA step. <code>set</code> reads an existing dataset:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data crops2;
+  <span class="k">set</span> crops;
+  revenue = acres * yield * price;
+  revenue_per_acre = yield * price;
+  <span class="k">format</span> revenue dollar12<span class="m">.2</span> revenue_per_acre dollar8<span class="m">.2</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=crops2;
+  sum revenue;   <span class="c">/* adds a total row for revenue */</span>
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s3-3-if-then-else"><span class="num">3.3</span> If-Then-Else</h3>
+<p><code>if-then-else</code> creates variables based on conditions. Here we classify farms by size and calculate a price-floor payment (the support price is hypothetical):</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data farms_size;
+  <span class="k">input</span> farm $ acres market_price bushels;
+  <span class="k">length</span> size $ <span class="m">6</span>;
+  <span class="k">if</span> acres &lt; <span class="m">500</span> <span class="k">then</span> size = <span class="s">"small"</span>;
+  <span class="k">else</span> <span class="k">if</span> acres &lt; <span class="m">2000</span> <span class="k">then</span> size = <span class="s">"medium"</span>;
+  <span class="k">else</span> size = <span class="s">"large"</span>;
+
+  support_price = <span class="m">3.70</span>;   <span class="c">/* hypothetical support price, $/bu */</span>
+  <span class="k">if</span> market_price &lt; support_price <span class="k">then</span> payment = (support_price - market_price) * bushels;
+  <span class="k">else</span> payment = <span class="m">0</span>;
+  <span class="k">format</span> payment dollar12<span class="m">.2</span>;
+<span class="k">  datalines;</span>
+<span class="x">A  120 3.45 20000</span>
+<span class="x">B  850 3.90 95000</span>
+<span class="x">C 2400 3.55 410000</span>
+<span class="x">D  430 3.75 60000</span>
+<span class="x">;</span>
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=farms_size noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s3-4-do-loops"><span class="num">3.4</span> DO Loops</h3>
+<p>A <code>do</code> loop repeats statements. With <code>output</code>, each repetition writes a row, which is a handy way to build tables such as an investment schedule:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data growth;
+  balance = <span class="m">10000</span>;
+  <span class="k">do</span> year = <span class="m">1</span> to <span class="m">5</span>;
+    balance = balance * <span class="m">1.05</span>;
+    <span class="k">output</span>;               <span class="c">/* write one row per year */</span>
+  <span class="k">end</span>;
+  <span class="k">format</span> balance dollar12<span class="m">.2</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=growth noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><p>A <code>do while</code> loop repeats as long as a condition is true. How many years does it take to double an investment at 6%?</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data <span class="kc">_null_</span>;
+  balance = <span class="m">1000</span>;
+  years = <span class="m">0</span>;
+  <span class="k">do</span> <span class="k">while</span> (balance &lt; <span class="m">2000</span>);
+    balance = balance * <span class="m">1.06</span>;
+    years + <span class="m">1</span>;            <span class="c">/* sum statement: adds 1 */</span>
+  <span class="k">end</span>;
+<span class="k">  put </span><span class="s">"Years to double: "</span><span class="err"> years </span><span class="s">"  Final balance: "</span><span class="err"> balance dollar10</span><span class="m">.2</span><span class="err">;</span>
+run;
+</pre></div>
+</div></div><p>Paying off a $20,000 equipment loan with $5,000 payments per year at 7% interest:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data loan;
+  debt = <span class="m">20000</span>;
+  <span class="k">do</span> year = <span class="m">1</span> to <span class="m">10</span> <span class="k">while</span> (debt &gt; <span class="m">0</span>);
+    debt = debt * <span class="m">1.07</span> - <span class="m">5000</span>;    <span class="c">/* interest is added, then the payment is made */</span>
+    remaining = <span class="nb">max(</span>debt, <span class="m">0</span>);
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+  <span class="k">keep</span> year remaining;
+  <span class="k">format</span> remaining dollar12<span class="m">.2</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=loan noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s3-5-arrays"><span class="num">3.5</span> Arrays</h3>
+<p>A SAS <strong>array</strong> groups variables so you can process them in a loop. Here we convert nominal prices into real prices with a price index:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data real_prices;
+  <span class="k">array</span> nominal{<span class="m">5</span>} p1-p5 (<span class="m">3.50</span> <span class="m">3.70</span> <span class="m">4.10</span> <span class="m">5.90</span> <span class="m">6.50</span>);   <span class="c">/* $/bu */</span>
+  <span class="k">array</span> cpi{<span class="m">5</span>}     c1-c5 (<span class="m">100</span> <span class="m">102</span> <span class="m">105</span> <span class="m">110</span> <span class="m">118</span>);         <span class="c">/* price index */</span>
+  <span class="k">array</span> real{<span class="m">5</span>}    r1-r5;
+  <span class="k">do</span> i = <span class="m">1</span> to <span class="m">5</span>;
+    real{i} = <span class="nb">round(</span>nominal{i} / cpi{i} * <span class="m">100</span>, <span class="m">0.01</span>);
+  <span class="k">end</span>;
+  <span class="k">drop</span> i;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=real_prices noobs;
+  var r1-r5;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s3-6-net-present-value"><span class="num">3.6</span> Net Present Value</h3>
+<p>SAS has many financial functions. Here we compute the NPV of buying a $50,000 grain bin that saves $9,000 per year for 8 years, discounting each cash flow:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data npv;
+  <span class="k">do</span> rate = <span class="m">0.06</span>, <span class="m">0.10</span>;
+    npv = -<span class="m">50000</span>;
+    <span class="k">do</span> t = <span class="m">1</span> to <span class="m">8</span>;
+      npv + <span class="m">9000</span> / (<span class="m">1</span> + rate) ** t;
+    <span class="k">end</span>;
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+  <span class="k">keep</span> rate npv;
+  <span class="k">format</span> rate percent6<span class="m">.0</span> npv dollar12<span class="m">.2</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=npv noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><p>A positive NPV means the investment earns more than the interest rate used to discount it.</p><h3 id="s3-7-macros-reusable-code"><span class="num">3.7</span> Macros: Reusable Code</h3>
+<p><strong>Macro variables</strong> store text you reuse, and <strong>macros</strong> are like functions: you define them once and call them with different inputs.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="nb">%let</span> price = <span class="m">4.25</span>;
+<span class="nb">%let</span> cost_per_acre = <span class="m">690</span>;
+<span class="k">%put </span><span class="err">Price is </span><span class="nv">&amp;price</span><span class="err"> </span><span class="k">and</span><span class="err"> cost per acre is </span><span class="nv">&amp;cost_per_acre</span><span class="err">;</span>
+
+<span class="c">/* A macro that reports the annual payment on a loan */</span>
+<span class="nb">%macro</span> loan_payment(principal=, rate=, years=);
+<span class="kr">  data </span><span class="kc">_null_</span>;
+    payment = <span class="nv">&amp;principal</span> * <span class="nv">&amp;rate</span> / (<span class="m">1</span> - (<span class="m">1</span> + <span class="nv">&amp;rate</span>) ** (-<span class="nv">&amp;years</span>));
+<span class="k">    put </span><span class="s">"Annual payment on </span><span class="nv">&amp;principal</span><span class="s"> at </span><span class="nv">&amp;rate</span><span class="s"> for </span><span class="nv">&amp;years</span><span class="s"> years: "</span><span class="err"> payment dollar12</span><span class="m">.2</span><span class="err">;</span>
+<span class="kr">  run;</span>
+<span class="nb">%mend</span> loan_payment;
+
+<span class="nf">%loan_payment</span>(principal=<span class="m">150000</span>, rate=<span class="m">0.065</span>, years=<span class="m">7</span>);
+<span class="nf">%loan_payment</span>(principal=<span class="m">80000</span>, rate=<span class="m">0.07</span>, years=<span class="m">5</span>);
+</pre></div>
+</div></div><h2 id="s4-working-with-datasets"><span class="num">4</span> Working with Datasets</h2>
+<h3 id="s4-1-libraries-and-importing-data"><span class="num">4.1</span> Libraries and Importing Data</h3>
+<p>A <strong>library</strong> is a folder that SAS uses to store datasets. <code>WORK</code> is a temporary library that is erased when you close SAS. Use <code>libname</code> to point to a permanent folder (in SAS OnDemand, your files are under <code>/home/your-username/</code>).</p><div class="cell"><span class="tag">Example: change the folder or file name to your own before running</span><div class="code"><div class="hl"><pre><span></span><span class="k">libname</span> m<span class="kr">ydata </span><span class="s">"/home/your-username/AGECON"</span>;   <span class="c">/* change to your own folder */</span>
+
+<span class="c">/* Import a CSV file */</span>
+<span class="kr">proc import </span>datafile=<span class="s">"/home/your-username/AGECON/demographics.csv"</span>
+            <span class="k">out</span>=work<span class="m">.</span>demographics
+            dbms=csv
+            <span class="k">replace</span>;
+  getnames=yes;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><p>So that the rest of these notes run anywhere, we create a small <strong>simulated</strong> household dataset for practice:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data household;
+  <span class="k">call</span> streaminit(<span class="m">2024</span>);
+  <span class="k">do</span> hhnum = <span class="m">1001</span> to <span class="m">1010</span>;
+    region         = rand(<span class="s">"integer"</span>, <span class="m">1</span>, <span class="m">4</span>);
+    rural          = rand(<span class="s">"bernoulli"</span>, <span class="m">0.5</span>);
+    household_size = rand(<span class="s">"integer"</span>, <span class="m">1</span>, <span class="m">6</span>);
+    income         = <span class="nb">round(</span>rand(<span class="s">"normal"</span>, <span class="m">65000</span>, <span class="m">20000</span>));
+    rent_mortgage  = <span class="nb">round(</span>rand(<span class="s">"normal"</span>, <span class="m">1200</span>, <span class="m">300</span>));
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+  <span class="k">label</span> income = <span class="s">"Average household income ($)"</span>
+        rent_mortgage = <span class="s">"Monthly rent or mortgage ($)"</span>;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s4-2-exploring-data"><span class="num">4.2</span> Exploring Data</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>proc contents data=household;       <span class="c">/* variables and types */</span>
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=household (obs=<span class="m">5</span>);  <span class="c">/* first 5 rows */</span>
+<span class="kr">run;</span>
+
+<span class="kr">proc means </span>data=household n mean std min max;
+  var income household_size rent_mortgage;
+<span class="kr">run;</span>
+
+<span class="kr">proc freq </span>data=household;
+  tables region rural;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s4-3-filter-sort-and-group"><span class="num">4.3</span> Filter, Sort, and Group</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c">/* Filter: households with income above $60,000 */</span>
+<span class="kr">data </span>high_income;
+  <span class="k">set</span> household;
+  <span class="k">where</span> income &gt; <span class="m">60000</span>;
+<span class="kr">run;</span>
+
+<span class="c">/* Sort: largest rent or mortgage first */</span>
+<span class="kr">proc sort </span>data=household <span class="k">out</span>=sorted;
+  <span class="k">by</span> descending rent_mortgage;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=sorted (obs=<span class="m">3</span>);
+<span class="kr">run;</span>
+
+<span class="c">/* Group: averages by region */</span>
+<span class="kr">proc means </span>data=household mean maxdec=<span class="m">1</span>;
+  class region;
+  var income household_size;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s4-4-merging-datasets"><span class="num">4.4</span> Merging Datasets</h3>
+<p><code>merge</code> combines datasets side by side using a common variable. Both datasets must be sorted by that variable first:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data region_names;
+  <span class="k">input</span> region region_name $ <span class="m">3-20</span>;
+<span class="k">  datalines;</span>
+<span class="x">1 Northeast</span>
+<span class="x">2 Midwest</span>
+<span class="x">3 South</span>
+<span class="x">4 West</span>
+<span class="x">;</span>
+<span class="kr">run;</span>
+
+<span class="kr">proc sort </span>data=household; <span class="k">by</span> region;<span class="kr"> run;</span>
+<span class="kr">proc sort </span>data=region_names; <span class="k">by</span> region;<span class="kr"> run;</span>
+
+<span class="kr">data </span>household_named;
+  <span class="k">merge</span> household region_names;
+  <span class="k">by</span> region;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s4-5-exporting"><span class="num">4.5</span> Exporting</h3><div class="cell"><span class="tag">Example: change the folder or file name to your own before running</span><div class="code"><div class="hl"><pre><span></span>proc export data=household
+            outfile=<span class="s">"/home/your-username/AGECON/household.csv"</span>
+            dbms=csv
+            <span class="k">replace</span>;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h2 id="s5-data-visualization"><span class="num">5</span> Data Visualization</h2>
+<p><code>proc sgplot</code> creates publication-quality graphs.</p>
+<h3 id="s5-1-histogram-and-boxplot"><span class="num">5.1</span> Histogram and Boxplot</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>data prices;
+  <span class="k">call</span> streaminit(<span class="m">2025</span>);
+  <span class="k">do</span> i = <span class="m">1</span> to <span class="m">1000</span>;
+    harvest_price = rand(<span class="s">"normal"</span>, <span class="m">4.30</span>, <span class="m">0.45</span>);   <span class="c">/* simulated $/bu */</span>
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc sgplot </span>data=prices;
+  histogram harvest_price;
+  density harvest_price;
+  <span class="k">title</span> <span class="s">"Distribution of simulated harvest prices"</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc sgplot </span>data=prices;
+  vbox harvest_price;
+  <span class="k">title</span> <span class="s">"Boxplot of harvest prices"</span>;
+<span class="kr">run;</span>
+
+<span class="c">/* Price risk: 5th and 95th percentiles of the simulated prices */</span>
+<span class="kr">proc univariate </span>data=prices noprint;
+  var harvest_price;
+  <span class="k">output</span> <span class="k">out</span>=pctl pctlpts=<span class="m">5</span> <span class="m">95</span> pctlpre=p;
+<span class="kr">run;</span>
+
+<span class="kr">proc print </span>data=pctl noobs;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s5-2-bar-chart"><span class="num">5.2</span> Bar Chart</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>proc sgplot data=crops2;
+  vbar crop / response=revenue_per_acre;
+  yaxis <span class="k">label</span>=<span class="s">"Revenue ($ per acre)"</span>;
+  <span class="k">title</span> <span class="s">"Revenue per acre by crop"</span>;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s5-3-supply-and-demand"><span class="num">5.3</span> Supply and Demand</h3>
+<p>Plot demand $Q_d = 100 - 8P$ and supply $Q_s = 20 + 12P$. The equilibrium is $P = 4$ and $Q = 68$:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data market;
+  <span class="k">do</span> P = <span class="m">0</span> to <span class="m">10</span> <span class="k">by</span> <span class="m">0.1</span>;
+    Qd = <span class="m">100</span> - <span class="m">8</span> * P;
+    Qs = <span class="m">20</span> + <span class="m">12</span> * P;
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc sgplot </span>data=market;
+  series <span class="k">x</span>=Qd y=P / legendlabel=<span class="s">"Demand"</span> lineattrs=(thickness=<span class="m">2</span>);
+  series <span class="k">x</span>=Qs y=P / legendlabel=<span class="s">"Supply"</span> lineattrs=(thickness=<span class="m">2</span>);
+  dropline <span class="k">x</span>=<span class="m">68</span> y=<span class="m">4</span> / dropto=both;
+  xaxis <span class="k">label</span>=<span class="s">"Quantity"</span> min=<span class="m">0</span> max=<span class="m">110</span>;
+  yaxis <span class="k">label</span>=<span class="s">"Price"</span> min=<span class="m">0</span> max=<span class="m">10</span>;
+  <span class="k">title</span> <span class="s">"Market equilibrium"</span>;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h2 id="s6-regression"><span class="num">6</span> Regression</h2>
+<p>We simulate a farm dataset: corn yield depends on fertilizer, rainfall, and irrigation.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>data farms;
+  <span class="k">call</span> streaminit(<span class="m">42</span>);
+  <span class="k">do</span> id = <span class="m">1</span> to <span class="m">200</span>;
+    fertilizer = <span class="m">50</span> + <span class="m">150</span> * rand(<span class="s">"uniform"</span>);     <span class="c">/* lbs of nitrogen per acre */</span>
+    rainfall   = <span class="m">15</span> + <span class="m">25</span> * rand(<span class="s">"uniform"</span>);      <span class="c">/* inches during the season */</span>
+    irrigated  = rand(<span class="s">"bernoulli"</span>, <span class="m">0.5</span>);
+    yield_bu   = <span class="m">60</span> + <span class="m">0.35</span>*fertilizer + <span class="m">1.5</span>*rainfall + <span class="m">20</span>*irrigated + rand(<span class="s">"normal"</span>, <span class="m">0</span>, <span class="m">15</span>);
+    high_yield = (yield_bu &gt; <span class="m">160</span>);
+    <span class="k">output</span>;
+  <span class="k">end</span>;
+<span class="kr">run;</span>
+
+<span class="kr">proc means </span>data=farms n mean std min max maxdec=<span class="m">2</span>;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s6-1-linear-and-multiple-regression"><span class="num">6.1</span> Linear and Multiple Regression</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>proc reg data=farms;
+  model yield_bu = fertilizer;                          <span class="c">/* simple regression */</span>
+  model yield_bu = fertilizer rainfall irrigated;       <span class="c">/* multiple regression */</span>
+<span class="kr">run;</span>
+<span class="kr">quit;</span>
+
+<span class="c">/* Robust (heteroskedasticity-consistent) standard errors */</span>
+<span class="kr">proc reg </span>data=farms;
+  model yield_bu = fertilizer rainfall irrigated / hcc;
+<span class="kr">run;</span>
+<span class="kr">quit;</span>
+</pre></div>
+</div></div><h3 id="s6-2-probit-model"><span class="num">6.2</span> Probit Model</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span>proc logistic data=farms descending;
+  model high_yield = fertilizer rainfall irrigated / <span class="k">link</span>=probit;
+<span class="kr">run;</span>
+</pre></div>
+</div></div><h3 id="s6-3-regression-with-matrix-algebra"><span class="num">6.3</span> Regression with Matrix Algebra</h3>
+<p><code>proc iml</code> works with matrices directly. The OLS coefficients solve $\hat\beta = (X'X)^{-1}X'y$:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span>proc iml;
+  use farms;
+  read all var {fertilizer rainfall irrigated} <span class="k">into</span> Xvars;
+  read all var {yield_bu} <span class="k">into</span> y;
+  close farms;
+
+  <span class="k">X</span> = j(nrow(Xvars), <span class="m">1</span>, <span class="m">1</span>) || Xvars;   <span class="c">/* add an intercept column */</span>
+  beta = solve(<span class="k">X</span>` * <span class="k">X</span>, <span class="k">X</span>` * y);         <span class="c">/* solves (X'X) b = X'y */</span>
+  print beta[rowname={<span class="s">"Intercept"</span> <span class="s">"fertilizer"</span> <span class="s">"rainfall"</span> <span class="s">"irrigated"</span>}];
+<span class="kr">quit;</span>
+</pre></div>
+</div></div><p>The estimates should be close to the values used to simulate the data (0.35, 1.5, and 20), but not exact, because of the random noise.</p>
+    <footer>Walter Ac-Pangan &middot; SAS Notes for AGECON &middot; October 2026</footer>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stata Notes for AGECON: Basics and Fundamentals</title>
+<meta name="description" content="An introduction to Stata for agricultural economics students, with economics examples.">
+<link rel="icon" href="../files/photo.jpg">
+<script>window.MathJax = { tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] } };</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+<style>
+  :root { --ink:#1a1a1a; --ink-2:#444; --ink-3:#777; --rule:#e3e3e3; --blue:#2a5298; --wash:#f6f8fb; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; color:var(--ink); background:#fff; line-height:1.65; font-size:15px; }
+  a { color: var(--blue); }
+  .top { border-bottom:1px solid var(--rule); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .top a.home { font-family: Georgia, serif; color:var(--ink); text-decoration:none; font-size:16px; }
+  .top .links a { font-size:13px; margin-left:16px; text-decoration:none; }
+  .wrap { display:grid; grid-template-columns: 250px minmax(0,1fr); gap:40px; max-width:1180px; margin:0 auto; padding:28px 24px 60px; }
+  nav.toc { position:sticky; top:16px; align-self:start; max-height:calc(100vh - 32px); overflow:auto; font-size:13px; border-right:1px solid var(--rule); padding-right:16px; }
+  nav.toc ul { list-style:none; padding:0; margin:0; }
+  nav.toc li.l1 { margin-top:10px; font-weight:600; }
+  nav.toc li.l2 { padding-left:14px; }
+  nav.toc a { color:var(--ink-2); text-decoration:none; display:block; padding:2px 0; }
+  nav.toc a:hover { color:var(--blue); }
+  header.doc h1 { font-family: Georgia, serif; font-weight:normal; font-size:30px; margin:0 0 6px; }
+  header.doc .meta { color:var(--ink-3); font-size:14px; margin-bottom:14px; }
+  .note { background:#eaf1fb; border:1px solid #c5d6ef; border-radius:4px; padding:10px 14px; font-size:13.5px; color:#1d3c6e; margin:12px 0; }
+  .actions { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px; }
+  .actions a { font-size:12px; letter-spacing:.03em; padding:5px 14px; border:1px solid var(--blue); border-radius:3px; text-decoration:none; }
+  .actions a:hover { background:var(--blue); color:#fff; }
+  main h2 { font-family: Georgia, serif; font-weight:normal; font-size:24px; border-bottom:1px solid var(--rule); padding-bottom:6px; margin:44px 0 14px; }
+  main h3 { font-size:17px; margin:30px 0 10px; }
+  main h4 { font-size:15px; margin:22px 0 8px; }
+  .num { color:var(--ink-3); margin-right:6px; }
+  main p, main li { color:var(--ink-2); }
+  code { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em; background:#f2f2f2; padding:1px 4px; border-radius:3px; }
+  .cell { margin:14px 0 18px; }
+  .code .hl { background:var(--wash); border:1px solid #e6ebf2; border-left:3px solid var(--blue); border-radius:4px; }
+  .code pre { margin:0; padding:12px 14px; overflow-x:auto; font-size:13px; line-height:1.5; font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  main > table { display:block; overflow-x:auto; max-width:100%; border-collapse:collapse; font-size:13.5px; margin:10px 0 16px; }
+  main > table th, main > table td { border-bottom:1px solid var(--rule); padding:6px 12px; text-align:left; vertical-align:top; }
+  main > table thead th { border-bottom:2px solid #bbb; color:var(--ink); }
+  .tag { display:inline-block; font-size:11px; color:#7a4d00; background:#fff4dd; border:1px solid #f0d9a8; border-radius:3px; padding:1px 8px; margin-bottom:6px; }
+  footer { color:var(--ink-3); font-size:12px; border-top:1px solid var(--rule); margin-top:50px; padding-top:14px; }
+  pre { line-height: 125%; }
+td.linenos .normal { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.hl .hll { background-color: #ffffcc }
+.hl { background: #f0f0f0; }
+.hl .c { color: #60A0B0; font-style: italic } /* Comment */
+.hl .err { border: 1px solid #F00 } /* Error */
+.hl .k { color: #007020; font-weight: bold } /* Keyword */
+.hl .o { color: #666 } /* Operator */
+.hl .ch { color: #60A0B0; font-style: italic } /* Comment.Hashbang */
+.hl .cm { color: #60A0B0; font-style: italic } /* Comment.Multiline */
+.hl .cp { color: #007020 } /* Comment.Preproc */
+.hl .cpf { color: #60A0B0; font-style: italic } /* Comment.PreprocFile */
+.hl .c1 { color: #60A0B0; font-style: italic } /* Comment.Single */
+.hl .cs { color: #60A0B0; background-color: #FFF0F0 } /* Comment.Special */
+.hl .gd { color: #A00000 } /* Generic.Deleted */
+.hl .ge { font-style: italic } /* Generic.Emph */
+.hl .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.hl .gr { color: #F00 } /* Generic.Error */
+.hl .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.hl .gi { color: #00A000 } /* Generic.Inserted */
+.hl .go { color: #888 } /* Generic.Output */
+.hl .gp { color: #C65D09; font-weight: bold } /* Generic.Prompt */
+.hl .gs { font-weight: bold } /* Generic.Strong */
+.hl .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.hl .gt { color: #04D } /* Generic.Traceback */
+.hl .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.hl .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.hl .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.hl .kp { color: #007020 } /* Keyword.Pseudo */
+.hl .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.hl .kt { color: #902000 } /* Keyword.Type */
+.hl .m { color: #40A070 } /* Literal.Number */
+.hl .s { color: #4070A0 } /* Literal.String */
+.hl .na { color: #4070A0 } /* Name.Attribute */
+.hl .nb { color: #007020 } /* Name.Builtin */
+.hl .nc { color: #0E84B5; font-weight: bold } /* Name.Class */
+.hl .no { color: #60ADD5 } /* Name.Constant */
+.hl .nd { color: #555; font-weight: bold } /* Name.Decorator */
+.hl .ni { color: #D55537; font-weight: bold } /* Name.Entity */
+.hl .ne { color: #007020 } /* Name.Exception */
+.hl .nf { color: #06287E } /* Name.Function */
+.hl .nl { color: #002070; font-weight: bold } /* Name.Label */
+.hl .nn { color: #0E84B5; font-weight: bold } /* Name.Namespace */
+.hl .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.hl .nv { color: #BB60D5 } /* Name.Variable */
+.hl .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.hl .w { color: #BBB } /* Text.Whitespace */
+.hl .mb { color: #40A070 } /* Literal.Number.Bin */
+.hl .mf { color: #40A070 } /* Literal.Number.Float */
+.hl .mh { color: #40A070 } /* Literal.Number.Hex */
+.hl .mi { color: #40A070 } /* Literal.Number.Integer */
+.hl .mo { color: #40A070 } /* Literal.Number.Oct */
+.hl .sa { color: #4070A0 } /* Literal.String.Affix */
+.hl .sb { color: #4070A0 } /* Literal.String.Backtick */
+.hl .sc { color: #4070A0 } /* Literal.String.Char */
+.hl .dl { color: #4070A0 } /* Literal.String.Delimiter */
+.hl .sd { color: #4070A0; font-style: italic } /* Literal.String.Doc */
+.hl .s2 { color: #4070A0 } /* Literal.String.Double */
+.hl .se { color: #4070A0; font-weight: bold } /* Literal.String.Escape */
+.hl .sh { color: #4070A0 } /* Literal.String.Heredoc */
+.hl .si { color: #70A0D0; font-style: italic } /* Literal.String.Interpol */
+.hl .sx { color: #C65D09 } /* Literal.String.Other */
+.hl .sr { color: #235388 } /* Literal.String.Regex */
+.hl .s1 { color: #4070A0 } /* Literal.String.Single */
+.hl .ss { color: #517918 } /* Literal.String.Symbol */
+.hl .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.hl .fm { color: #06287E } /* Name.Function.Magic */
+.hl .vc { color: #BB60D5 } /* Name.Variable.Class */
+.hl .vg { color: #BB60D5 } /* Name.Variable.Global */
+.hl .vi { color: #BB60D5 } /* Name.Variable.Instance */
+.hl .vm { color: #BB60D5 } /* Name.Variable.Magic */
+.hl .il { color: #40A070 } /* Literal.Number.Integer.Long */
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: minmax(0,1fr); gap:10px; }
+    nav.toc { position:static; max-height:none; border-right:none; border-bottom:1px solid var(--rule); padding:0 0 14px; }
+    header.doc h1 { font-size:25px; }
+  }
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="home" href="../index.html">Walter Ac-Pangan</a>
+  <div class="links"><a href="R_Notes_for_AGECON.html">R Notes</a><a href="Py_Notes_for_AGECON.html">Py Notes</a><a href="SAS_Notes_for_AGECON.html">SAS Notes</a><a href="../index.html#teaching">Teaching</a></div>
+</div>
+<div class="wrap">
+  <nav class="toc" aria-label="Contents"><strong>Contents</strong><ul><li class="l1"><a href="#s1-introduction-to-stata">1 Introduction to Stata</a></li><li class="l2"><a href="#s1-1-getting-access">1.1 Getting Access</a></li><li class="l2"><a href="#s1-2-the-stata-interface">1.2 The Stata Interface</a></li><li class="l1"><a href="#s2-the-basics">2 The Basics</a></li><li class="l2"><a href="#s2-1-comments-and-calculations">2.1 Comments and Calculations</a></li><li class="l2"><a href="#s2-2-locals-and-scalars">2.2 Locals and Scalars</a></li><li class="l2"><a href="#s2-3-missing-values">2.3 Missing Values</a></li><li class="l2"><a href="#s2-4-logical-operators">2.4 Logical Operators</a></li><li class="l2"><a href="#s2-5-data-types-and-converting-text">2.5 Data Types and Converting Text</a></li><li class="l2"><a href="#s2-6-working-with-dates">2.6 Working with Dates</a></li><li class="l1"><a href="#s3-fundamentals">3 Fundamentals</a></li><li class="l2"><a href="#s3-1-creating-a-dataset">3.1 Creating a Dataset</a></li><li class="l2"><a href="#s3-2-creating-and-changing-variables">3.2 Creating and Changing Variables</a></li><li class="l2"><a href="#s3-3-conditions-with-if">3.3 Conditions with if</a></li><li class="l2"><a href="#s3-4-loops">3.4 Loops</a></li><li class="l2"><a href="#s3-5-writing-your-own-commands">3.5 Writing Your Own Commands</a></li><li class="l2"><a href="#s3-6-error-handling">3.6 Error Handling</a></li><li class="l1"><a href="#s4-working-with-datasets">4 Working with Datasets</a></li><li class="l2"><a href="#s4-1-importing-data">4.1 Importing Data</a></li><li class="l2"><a href="#s4-2-exploring-data">4.2 Exploring Data</a></li><li class="l2"><a href="#s4-3-filter-sort-and-group">4.3 Filter, Sort, and Group</a></li><li class="l2"><a href="#s4-4-merging-datasets">4.4 Merging Datasets</a></li><li class="l2"><a href="#s4-5-saving-and-exporting">4.5 Saving and Exporting</a></li><li class="l1"><a href="#s5-data-visualization">5 Data Visualization</a></li><li class="l2"><a href="#s5-1-histogram-and-boxplot">5.1 Histogram and Boxplot</a></li><li class="l2"><a href="#s5-2-bar-chart">5.2 Bar Chart</a></li><li class="l2"><a href="#s5-3-supply-and-demand">5.3 Supply and Demand</a></li><li class="l1"><a href="#s6-regression">6 Regression</a></li><li class="l2"><a href="#s6-1-linear-and-multiple-regression">6.1 Linear and Multiple Regression</a></li><li class="l2"><a href="#s6-2-probit-model">6.2 Probit Model</a></li><li class="l2"><a href="#s6-3-side-by-side-regression-tables">6.3 Side-by-Side Regression Tables</a></li><li class="l2"><a href="#s6-4-regression-with-matrix-algebra">6.4 Regression with Matrix Algebra</a></li></ul></nav>
+  <main>
+    <header class="doc">
+      <h1>Stata Notes for AGECON: Basics and Fundamentals</h1>
+      <div class="meta">Walter Ac-Pangan, Ph.D. &middot; October 2026</div>
+      <p>These notes introduce Stata for agricultural economics, following the same topics as the <a href="R_Notes_for_AGECON.html">R Notes</a> and <a href="Py_Notes_for_AGECON.html">Py Notes for AGECON</a>. The examples are intentionally basic and use economics problems throughout.</p>
+      <div class="note">Run the examples in Stata (version 14 or newer). Results are not shown on this page: run each example yourself to see them. Every section creates its own practice data, so the code runs without any files (except the few examples marked to use your own folder). Copy the examples into a do-file and run them a few lines at a time.</div>
+      <div class="actions"><a href="Stata_Notes_for_AGECON.do" download>Download the Stata script (.do)</a></div>
+    </header>
+    <h2 id="s1-introduction-to-stata"><span class="num">1</span> Introduction to Stata</h2>
+<p>Stata is a statistical software package that is very popular in applied economics, agricultural economics, and policy research. It is known for clear syntax, excellent documentation, and reliable econometrics, from simple regressions to panel data and survey analysis.</p>
+<h3 id="s1-1-getting-access"><span class="num">1.1</span> Getting Access</h3>
+<p>Stata is commercial software. Most universities provide it on lab computers or through a student license (Stata/BE, SE, or MP); check with your department. Student pricing is available at <a href="https://www.stata.com/order/" target="_blank" rel="noopener">https://www.stata.com/order/</a>.</p>
+<h3 id="s1-2-the-stata-interface"><span class="num">1.2</span> The Stata Interface</h3>
+<p>Stata has five main windows:</p>
+<ol>
+<li><strong>Command</strong>: type one command at a time and press Enter.</li>
+<li><strong>Results</strong>: shows the output.</li>
+<li><strong>Review</strong>: the history of commands you have run.</li>
+<li><strong>Variables</strong>: the variables in the dataset in memory.</li>
+<li><strong>Properties</strong>: details about the selected variable.</li>
+</ol>
+<p>For anything longer than a quick check, write your commands in a <strong>do-file</strong> (File &gt; New &gt; Do-file). A do-file is a script you can save, rerun, and share, which makes your work reproducible. Highlight lines and press <code>Ctrl + D</code> (Windows) or <code>Cmd + Shift + D</code> (Mac) to run them.</p>
+<p>Stata keeps <strong>one dataset in memory</strong> at a time. Most commands work on that dataset.</p><h2 id="s2-the-basics"><span class="num">2</span> The Basics</h2>
+<h3 id="s2-1-comments-and-calculations"><span class="num">2.1</span> Comments and Calculations</h3>
+<p>Comments explain your code and are ignored by Stata. <code>display</code> works as a calculator:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* A full-line comment starts with an asterisk</span>
+<span class="c1">// This is also a comment</span>
+<span class="k">display</span> <span class="m">2</span> <span class="o">+</span> <span class="m">3</span>        <span class="c1">// a comment at the end of a line</span>
+<span class="cm">/* A block comment</span>
+<span class="cm">   can span several lines */</span>
+</pre></div>
+</div></div><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">display</span> <span class="m">3</span> <span class="o">+</span> <span class="m">7</span>        <span class="c1">// addition</span>
+<span class="k">display</span> <span class="m">3</span> <span class="o">-</span> <span class="m">7</span>        <span class="c1">// subtraction</span>
+<span class="k">display</span> <span class="m">3</span> <span class="o">*</span> <span class="m">7</span>        <span class="c1">// multiplication</span>
+<span class="k">display</span> <span class="m">3</span> <span class="o">/</span> <span class="m">7</span>        <span class="c1">// division</span>
+<span class="k">display</span> <span class="m">3</span><span class="o">^</span><span class="m">2</span>          <span class="c1">// exponent</span>
+<span class="k">display</span> <span class="nf">sqrt</span>(<span class="m">3</span>)      <span class="c1">// square root</span>
+<span class="k">display</span> <span class="nf">round</span>(<span class="m">3</span><span class="o">/</span><span class="m">7</span>, <span class="m">0.001</span>)
+<span class="k">display</span> <span class="nf">floor</span>(<span class="m">3</span><span class="o">/</span><span class="m">7</span>)   <span class="c1">// largest integer &lt;= 3/7</span>
+<span class="k">display</span> <span class="nf">ceil</span>(<span class="m">3</span><span class="o">/</span><span class="m">7</span>)    <span class="c1">// smallest integer &gt;= 3/7</span>
+<span class="k">display</span> <span class="nf">abs</span>(<span class="m">3</span> <span class="o">-</span> <span class="m">7</span>)   <span class="c1">// absolute value</span>
+<span class="k">display</span> <span class="nf">ln</span>(<span class="m">3</span>)        <span class="c1">// natural log</span>
+<span class="k">display</span> <span class="nf">log10</span>(<span class="m">3</span>)     <span class="c1">// log base 10</span>
+<span class="k">display</span> <span class="nf">floor</span>(<span class="m">1250</span><span class="o">/</span><span class="m">400</span>)   <span class="c1">// full truckloads</span>
+<span class="k">display</span> <span class="nf">mod</span>(<span class="m">1250</span>, <span class="m">400</span>)    <span class="c1">// bushels left over</span>
+</pre></div>
+</div></div><h3 id="s2-2-locals-and-scalars"><span class="num">2.2</span> Locals and Scalars</h3>
+<p>Stata uses <strong>locals</strong> (short-lived text or numbers inside a do-file) and <strong>scalars</strong> (single numbers) to store values. Refer to a local by wrapping its name in a backtick and an apostrophe: <code>`name'</code>.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">local</span> price = <span class="m">4.25</span>
+<span class="k">local</span> yield = <span class="m">180</span>
+<span class="k">display</span> <span class="s">"Revenue per acre: "</span> <span class="nv">`price'</span> <span class="o">*</span> <span class="nv">`yield'</span>
+
+<span class="k">scalar</span> cost = <span class="m">690</span>
+<span class="k">display</span> <span class="s">"Profit per acre: "</span> <span class="nv">`price'</span> <span class="o">*</span> <span class="nv">`yield'</span> <span class="o">-</span> cost
+</pre></div>
+</div></div><p>Stata <strong>is</strong> case sensitive: <code>price</code> and <code>Price</code> are different names.</p><h3>Economics Examples</h3>
+<p>Common agricultural economics calculations: unit conversion, revenue, cost, profit, break-even price, percent change, and compound interest.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Unit conversion: one bushel of corn = 56 lb, one lb = 0.45359237 kg</span>
+<span class="k">display</span> <span class="s">"Metric tons: "</span> <span class="nx">%9.2f</span> <span class="m">10000</span> <span class="o">*</span> <span class="m">56</span> <span class="o">*</span> <span class="m">0.45359237</span> <span class="o">/</span> <span class="m">1000</span>
+
+<span class="c1">* Revenue, cost, and profit for a 500-acre corn farm</span>
+<span class="k">local</span> acres = <span class="m">500</span>
+<span class="k">local</span> yld = <span class="m">180</span>
+<span class="k">local</span> price = <span class="m">4.25</span>
+<span class="k">local</span> cost_acre = <span class="m">690</span>
+<span class="k">local</span> revenue = <span class="nv">`acres'</span> <span class="o">*</span> <span class="nv">`yld'</span> <span class="o">*</span> <span class="nv">`price'</span>
+<span class="k">local</span> total_cost = <span class="nv">`acres'</span> <span class="o">*</span> <span class="nv">`cost_acre'</span>
+<span class="k">display</span> <span class="s">"Revenue: "</span> <span class="nx">%12.2fc</span> <span class="nv">`revenue'</span>
+<span class="k">display</span> <span class="s">"Profit:  "</span> <span class="nx">%12.2fc</span> <span class="nv">`revenue'</span> <span class="o">-</span> <span class="nv">`total_cost'</span>
+<span class="k">display</span> <span class="s">"Margin (%): "</span> <span class="nx">%5.1f</span> (<span class="nv">`revenue'</span> <span class="o">-</span> <span class="nv">`total_cost'</span>) <span class="o">/</span> <span class="nv">`revenue'</span> <span class="o">*</span> <span class="m">100</span>
+
+<span class="c1">* Break-even price</span>
+<span class="k">display</span> <span class="s">"Break-even price (dollars per bu): "</span> <span class="nx">%6.2f</span> <span class="nv">`cost_acre'</span> <span class="o">/</span> <span class="nv">`yld'</span>
+
+<span class="c1">* Percent change in the soybean price</span>
+<span class="k">display</span> <span class="s">"Percent change: "</span> <span class="nx">%6.1f</span> (<span class="m">10.90</span> <span class="o">-</span> <span class="m">13.20</span>) <span class="o">/</span> <span class="m">13.20</span> <span class="o">*</span> <span class="m">100</span>
+
+<span class="c1">* Compound interest: FV = PV * (1 + r)^t</span>
+<span class="k">display</span> <span class="s">"Future value: "</span> <span class="nx">%12.2fc</span> <span class="m">10000</span> <span class="o">*</span> (<span class="m">1</span> <span class="o">+</span> <span class="m">0.04</span>)<span class="o">^</span><span class="m">5</span>
+</pre></div>
+</div></div><h3 id="s2-3-missing-values"><span class="num">2.3</span> Missing Values</h3>
+<p>A missing numeric value in Stata is a period <code>.</code>. Arithmetic with a missing value returns missing. Commands such as <code>summarize</code> and functions such as <code>rowtotal()</code> skip missing values.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">display</span> <span class="m">1</span> <span class="o">+</span> . <span class="o">+</span> <span class="m">3</span>     <span class="c1">// missing</span>
+<span class="k">display</span> <span class="nf">missing</span>(.)    <span class="c1">// 1 = true</span>
+</pre></div>
+</div></div><p>Important: Stata treats missing values as <strong>larger than any number</strong>. A condition like <code>if price &gt; 4</code> is also true when <code>price</code> is missing, so write <code>if price &gt; 4 &amp; !missing(price)</code>.</p><h3 id="s2-4-logical-operators"><span class="num">2.4</span> Logical Operators</h3>
+<p>Comparisons return 1 (true) or 0 (false). Note that <code>==</code> tests equality and <code>=</code> assigns.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">display</span> <span class="m">3</span> <span class="o">==</span> <span class="m">7</span>          <span class="c1">// equal</span>
+<span class="k">display</span> <span class="m">3</span> <span class="o">!=</span> <span class="m">7</span>          <span class="c1">// not equal (also ~=)</span>
+<span class="k">display</span> <span class="m">3</span> <span class="o">&lt;</span> <span class="m">10</span>
+<span class="k">display</span> (<span class="m">3</span> <span class="o">&lt;</span> <span class="m">20</span>) <span class="o">&amp;</span> (<span class="m">7</span> <span class="o">&gt;=</span> <span class="m">50</span>)   <span class="c1">// and</span>
+<span class="k">display</span> (<span class="m">3</span> <span class="o">&lt;</span> <span class="m">20</span>) | (<span class="m">7</span> <span class="o">&gt;=</span> <span class="m">50</span>)   <span class="c1">// or</span>
+<span class="k">display</span> <span class="nf">inlist</span>(<span class="m">3</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">4</span>)  <span class="c1">// is 3 in the list?</span>
+<span class="k">display</span> <span class="nf">cond</span>(<span class="m">3</span> <span class="o">&lt;</span> <span class="m">100</span>, <span class="m">3</span> <span class="o">+</span> <span class="m">7</span>, .)   <span class="c1">// if-else: returns 10</span>
+</pre></div>
+</div></div><h3 id="s2-5-data-types-and-converting-text"><span class="num">2.5</span> Data Types and Converting Text</h3>
+<p>Variables are <strong>numeric</strong> (byte, int, long, float, double) or <strong>string</strong> (text). Text that looks like a number must be converted before doing math:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">input</span> str8 quantity_text
+<span class="s">"1,250"</span>
+<span class="s">"800"</span>
+<span class="k">end</span>
+
+<span class="k">generate</span> price_text =<span class="k"> char</span>(<span class="m">36</span>) <span class="o">+</span> <span class="s">"4.25"</span>                         <span class="c1">// a price stored as text: dollar sign + 4.25</span>
+<span class="k">generate</span> price = <span class="nf">real</span>(<span class="nf">subinstr</span>(price_text,<span class="k"> char</span>(<span class="m">36</span>), <span class="s">""</span>, .))    <span class="c1">// remove the dollar sign, convert</span>
+<span class="k">destring</span> quantity_text,<span class="k"> generate</span>(quantity) ignore(<span class="s">","</span>)          <span class="c1">// remove commas, convert</span>
+<span class="k">generate</span> revenue = price <span class="o">*</span> quantity
+<span class="k">format</span> revenue <span class="nx">%12.2fc</span>
+<span class="k">list</span>
+<span class="k">describe</span>
+</pre></div>
+</div></div><h3 id="s2-6-working-with-dates"><span class="num">2.6</span> Working with Dates</h3>
+<p>Stata stores dates as the number of days since January 1, 1960, so you can subtract them directly. Display formats such as <code>%td</code> show them as dates.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">display</span> <span class="nf">td</span>(05oct2024) <span class="o">-</span> <span class="nf">td</span>(25apr2024)       <span class="c1">// days from planting to harvest</span>
+
+<span class="c1">* An 18-month operating loan that starts on March 1, 2024</span>
+<span class="k">display</span> <span class="nx">%td</span> <span class="nf">dofm</span>(<span class="nf">mofd</span>(<span class="nf">td</span>(01mar2024)) <span class="o">+</span> <span class="m">18</span>)  <span class="c1">// maturity date</span>
+
+<span class="k">clear</span>
+<span class="k">input</span> str10 date_text
+<span class="s">"2024-04-25"</span>
+<span class="s">"2024-10-05"</span>
+<span class="k">end</span>
+<span class="k">generate</span> date = <span class="nf">date</span>(date_text, <span class="s">"YMD"</span>)
+<span class="k">format</span> date <span class="nx">%td</span>
+<span class="k">generate</span> year = <span class="nf">year</span>(date)
+<span class="k">generate</span> month = <span class="nf">month</span>(date)
+<span class="k">list</span>
+</pre></div>
+</div></div><h2 id="s3-fundamentals"><span class="num">3</span> Fundamentals</h2>
+<h3 id="s3-1-creating-a-dataset"><span class="num">3.1</span> Creating a Dataset</h3>
+<p><code>input</code> lets you type a small dataset directly into a do-file:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">input</span> str10 crop acres yield price
+<span class="s">"corn"</span>     <span class="m">300</span> <span class="m">180</span>  <span class="m">4.25</span>
+<span class="s">"soybeans"</span> <span class="m">200</span>  <span class="m">55</span> <span class="m">10.90</span>
+<span class="s">"wheat"</span>    <span class="m">100</span>  <span class="m">50</span>  <span class="m">5.60</span>
+<span class="k">end</span>
+
+<span class="k">list</span>
+</pre></div>
+</div></div><h3 id="s3-2-creating-and-changing-variables"><span class="num">3.2</span> Creating and Changing Variables</h3>
+<p><code>generate</code> creates a new variable and <code>replace</code> changes an existing one. <code>label</code> adds descriptions:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">generate</span> revenue = acres <span class="o">*</span> yield <span class="o">*</span> price
+<span class="k">generate</span> revenue_acre = yield <span class="o">*</span> price
+<span class="k">label</span> variable revenue <span class="s">"Total revenue (dollars)"</span>
+<span class="k">format</span> revenue <span class="nx">%12.2fc</span>
+<span class="k">list</span> crop revenue revenue_acre
+<span class="k">total</span> revenue
+</pre></div>
+</div></div><h3 id="s3-3-conditions-with-if"><span class="num">3.3</span> Conditions with if</h3>
+<p>Most Stata commands accept an <code>if</code> condition. Here we classify farms by size and compute a price-floor payment (the support price is hypothetical):</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">input</span> str1 farm acres market_price bushels
+<span class="s">"A"</span>  <span class="m">120</span> <span class="m">3.45</span>  <span class="m">20000</span>
+<span class="s">"B"</span>  <span class="m">850</span> <span class="m">3.90</span>  <span class="m">95000</span>
+<span class="s">"C"</span> <span class="m">2400</span> <span class="m">3.55</span> <span class="m">410000</span>
+<span class="s">"D"</span>  <span class="m">430</span> <span class="m">3.75</span>  <span class="m">60000</span>
+<span class="k">end</span>
+
+<span class="k">generate</span> str6 size = <span class="s">"small"</span>
+<span class="k">replace</span> size = <span class="s">"medium"</span><span class="k"> if</span> acres <span class="o">&gt;=</span> <span class="m">500</span> <span class="o">&amp;</span> acres <span class="o">&lt;</span> <span class="m">2000</span>
+<span class="k">replace</span> size = <span class="s">"large"</span> <span class="k"> if</span> acres <span class="o">&gt;=</span> <span class="m">2000</span>
+
+<span class="k">local</span> support = <span class="m">3.70</span>     <span class="c1">// hypothetical support price, dollars per bu</span>
+<span class="k">generate</span> payment = <span class="nf">cond</span>(market_price <span class="o">&lt;</span> <span class="nv">`support'</span>, (<span class="nv">`support'</span> <span class="o">-</span> market_price) <span class="o">*</span> bushels, <span class="m">0</span>)
+<span class="k">format</span> payment <span class="nx">%12.2fc</span>
+<span class="k">list</span>
+</pre></div>
+</div></div><h3 id="s3-4-loops"><span class="num">3.4</span> Loops</h3>
+<p><code>forvalues</code> loops over numbers and <code>foreach</code> loops over lists. <code>while</code> repeats as long as a condition is true.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Investment growth year by year</span>
+<span class="k">local</span> balance = <span class="m">10000</span>
+<span class="k">forvalues</span> year = <span class="m">1</span><span class="o">/</span><span class="m">5</span> {
+<span class="k">    local</span> balance = <span class="nv">`balance'</span> <span class="o">*</span> <span class="m">1.05</span>
+<span class="k">    display</span> <span class="s">"Year </span><span class="nv">`year'</span><span class="s">: "</span> <span class="nx">%12.2fc</span> <span class="nv">`balance'</span>
+}
+</pre></div>
+</div></div><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Years to double an investment at 6%</span>
+<span class="k">local</span> balance = <span class="m">1000</span>
+<span class="k">local</span> years = <span class="m">0</span>
+<span class="k">while</span> <span class="nv">`balance'</span> <span class="o">&lt;</span> <span class="m">2000</span> {
+<span class="k">    local</span> balance = <span class="nv">`balance'</span> <span class="o">*</span> <span class="m">1.06</span>
+<span class="k">    local</span> years = <span class="nv">`years'</span> <span class="o">+</span> <span class="m">1</span>
+}
+<span class="k">display</span> <span class="s">"Years to double: </span><span class="nv">`years'</span><span class="s">"</span>
+</pre></div>
+</div></div><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Paying off a 20,000-dollar loan with 5,000-dollar payments at 7% interest</span>
+<span class="k">local</span> debt = <span class="m">20000</span>
+<span class="k">local</span> year = <span class="m">0</span>
+<span class="k">while</span> <span class="nv">`debt'</span> <span class="o">&gt;</span> <span class="m">0</span> {
+<span class="k">    local</span> year = <span class="nv">`year'</span> <span class="o">+</span> <span class="m">1</span>
+<span class="k">    local</span> debt = <span class="nv">`debt'</span> <span class="o">*</span> <span class="m">1.07</span> <span class="o">-</span> <span class="m">5000</span>
+<span class="k">    display</span> <span class="s">"Year </span><span class="nv">`year'</span><span class="s">: remaining debt "</span> <span class="nx">%12.2fc</span> <span class="nf">max</span>(<span class="nv">`debt'</span>, <span class="m">0</span>)
+}
+</pre></div>
+</div></div><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* foreach: future value of 10,000 dollars after 10 years at several interest rates</span>
+<span class="k">foreach</span> r<span class="k"> in</span> <span class="m">0.04</span> <span class="m">0.06</span> <span class="m">0.08</span> {
+<span class="k">    display</span> <span class="s">"Rate </span><span class="nv">`r'</span><span class="s">: "</span> <span class="nx">%12.2fc</span> <span class="m">10000</span> <span class="o">*</span> (<span class="m">1</span> <span class="o">+</span> <span class="nv">`r'</span>)<span class="o">^</span><span class="m">10</span>
+}
+</pre></div>
+</div></div><h3 id="s3-5-writing-your-own-commands"><span class="num">3.5</span> Writing Your Own Commands</h3>
+<p>A <code>program</code> works like a function: define it once, then call it with different inputs. Here, the annual payment on a loan, using $A = P\,\frac{r}{1-(1+r)^{-n}}$:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">capture program drop</span> loan_payment
+<span class="k">program</span> define loan_payment
+<span class="k">    args</span> principal rate years
+<span class="k">    display</span> <span class="s">"Annual payment: "</span> <span class="nx">%12.2fc</span> <span class="nv">`principal'</span> <span class="o">*</span> <span class="nv">`rate'</span> <span class="o">/</span> (<span class="m">1</span> <span class="o">-</span> (<span class="m">1</span> <span class="o">+</span> <span class="nv">`rate'</span>)<span class="o">^</span>(<span class="o">-</span><span class="nv">`years'</span>))
+<span class="k">end</span>
+
+loan_payment <span class="m">150000</span> <span class="m">0.065</span> <span class="m">7</span>
+loan_payment <span class="m">80000</span> <span class="m">0.07</span> <span class="m">5</span>
+</pre></div>
+</div></div><p>Net present value of buying a $50,000 grain bin that saves $9,000 per year for 8 years:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">capture program drop</span> npv_bin
+<span class="k">program</span> define npv_bin
+<span class="k">    args</span> rate
+<span class="k">    local</span> npv = <span class="o">-</span><span class="m">50000</span>
+<span class="k">    forvalues</span> t = <span class="m">1</span><span class="o">/</span><span class="m">8</span> {
+<span class="k">        local</span> npv = <span class="nv">`npv'</span> <span class="o">+</span> <span class="m">9000</span> <span class="o">/</span> (<span class="m">1</span> <span class="o">+</span> <span class="nv">`rate'</span>)<span class="o">^</span><span class="nv">`t'</span>
+    }
+<span class="k">    display</span> <span class="s">"NPV at </span><span class="nv">`rate'</span><span class="s">: "</span> <span class="nx">%12.2fc</span> <span class="nv">`npv'</span>
+<span class="k">end</span>
+
+npv_bin <span class="m">0.06</span>
+npv_bin <span class="m">0.10</span>
+</pre></div>
+</div></div><p>A positive NPV means the investment earns more than the interest rate used to discount it.</p><h3 id="s3-6-error-handling"><span class="num">3.6</span> Error Handling</h3>
+<p><code>capture</code> runs a command and keeps going even if it fails. The return code <code>_rc</code> is 0 when the command worked:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">capture confirm</span> variable price
+<span class="k">if</span> _rc <span class="o">!=</span> <span class="m">0</span> {
+<span class="k">    display</span> <span class="s">"Variable 'price' does not exist in this dataset."</span>
+}
+<span class="k">else</span> {
+<span class="k">    display</span> <span class="s">"Variable 'price' found."</span>
+}
+</pre></div>
+</div></div><h2 id="s4-working-with-datasets"><span class="num">4</span> Working with Datasets</h2>
+<h3 id="s4-1-importing-data"><span class="num">4.1</span> Importing Data</h3>
+<p>Set your working directory with <code>cd</code>, then import your file. In class you will use the <code>demographics.csv</code> file provided to you:</p><div class="cell"><span class="tag">Example: change the folder or file name to your own before running</span><div class="code"><div class="hl"><pre><span></span><span class="k">cd</span> <span class="s">"C:/Users/Walter/Documents/AGECON"</span>     <span class="c1">// change to your own folder</span>
+import delimited <span class="s">"demographics.csv"</span>,<span class="k"> clear</span>
+</pre></div>
+</div></div><p>So that the rest of these notes run anywhere, we create a small <strong>simulated</strong> household dataset for practice:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">set</span> obs <span class="m">10</span>
+<span class="k">set</span> seed <span class="m">2024</span>
+<span class="k">generate</span> hhnum          = <span class="m">1000</span> <span class="o">+</span> _n
+<span class="k">generate</span> region         = <span class="nf">runiformint</span>(<span class="m">1</span>, <span class="m">4</span>)
+<span class="k">generate</span> rural          = <span class="nf">runiform</span>() <span class="o">&lt;</span> <span class="m">0.5</span>
+<span class="k">generate</span> household_size = <span class="nf">runiformint</span>(<span class="m">1</span>, <span class="m">6</span>)
+<span class="k">generate</span> income         = <span class="nf">round</span>(<span class="nf">rnormal</span>(<span class="m">65000</span>, <span class="m">20000</span>))
+<span class="k">generate</span> rent_mortgage  = <span class="nf">round</span>(<span class="nf">rnormal</span>(<span class="m">1200</span>, <span class="m">300</span>))
+<span class="k">label</span> variable income <span class="s">"Average household income (dollars)"</span>
+<span class="k">label</span> variable rent_mortgage <span class="s">"Monthly rent or mortgage (dollars)"</span>
+</pre></div>
+</div></div><h3 id="s4-2-exploring-data"><span class="num">4.2</span> Exploring Data</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">describe</span>              <span class="c1">// variables and types</span>
+<span class="k">list in</span> <span class="m">1</span><span class="o">/</span><span class="m">5</span>           <span class="c1">// first 5 rows</span>
+<span class="k">summarize</span> income household_size rent_mortgage
+<span class="k">tabulate</span> region
+<span class="k">codebook</span> rural
+</pre></div>
+</div></div><h3 id="s4-3-filter-sort-and-group"><span class="num">4.3</span> Filter, Sort, and Group</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Filter: count households with income above 60,000 dollars</span>
+<span class="k">count if</span> income <span class="o">&gt;</span> <span class="m">60000</span>
+
+<span class="c1">* Sort: largest rent or mortgage first</span>
+<span class="k">gsort</span> <span class="o">-</span>rent_mortgage
+<span class="k">list</span> hhnum rent_mortgage<span class="k"> in</span> <span class="m">1</span><span class="o">/</span><span class="m">3</span>
+
+<span class="c1">* Group: summary statistics by region</span>
+<span class="k">tabstat</span> income household_size,<span class="k"> by</span>(region) statistics(n<span class="k"> mean</span>)<span class="k"> format</span>(<span class="nx">%9.1f</span>)
+
+<span class="c1">* Add the group average as a new variable</span>
+<span class="k">bysort</span> region:<span class="k"> egen</span> avg_income_region =<span class="k"> mean</span>(income)
+</pre></div>
+</div></div><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="c1">* Collapse the data to one row per region (use preserve/restore to keep the original)</span>
+<span class="k">preserve</span>
+<span class="k">collapse</span> (count) households=hhnum (mean) avg_income=income avg_size=household_size,<span class="k"> by</span>(region)
+<span class="k">list</span>
+<span class="k">restore</span>
+</pre></div>
+</div></div><h3 id="s4-4-merging-datasets"><span class="num">4.4</span> Merging Datasets</h3>
+<p><code>merge</code> combines datasets side by side using a common variable:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">preserve</span>
+<span class="k">clear</span>
+<span class="k">input</span> region str10 region_name
+<span class="m">1</span> <span class="s">"Northeast"</span>
+<span class="m">2</span> <span class="s">"Midwest"</span>
+<span class="m">3</span> <span class="s">"South"</span>
+<span class="m">4</span> <span class="s">"West"</span>
+<span class="k">end</span>
+<span class="k">tempfile</span> regions
+<span class="k">save</span> <span class="nv">`regions'</span>
+<span class="k">restore</span>
+
+<span class="k">merge m</span>:<span class="m">1</span> region using <span class="nv">`regions'</span>
+<span class="k">tabulate</span> _merge
+</pre></div>
+</div></div><h3 id="s4-5-saving-and-exporting"><span class="num">4.5</span> Saving and Exporting</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">save</span> <span class="s">"household.dta"</span>,<span class="k"> replace</span>                      <span class="c1">// Stata format</span>
+export delimited using <span class="s">"household.csv"</span>,<span class="k"> replace</span>    <span class="c1">// CSV file</span>
+export excel using <span class="s">"household.xlsx"</span>, firstrow(variables)<span class="k"> replace</span>
+</pre></div>
+</div></div><h2 id="s5-data-visualization"><span class="num">5</span> Data Visualization</h2>
+<h3 id="s5-1-histogram-and-boxplot"><span class="num">5.1</span> Histogram and Boxplot</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">set</span> obs <span class="m">1000</span>
+<span class="k">set</span> seed <span class="m">2025</span>
+<span class="k">generate</span> harvest_price = <span class="nf">rnormal</span>(<span class="m">4.30</span>, <span class="m">0.45</span>)    <span class="c1">// simulated price, dollars per bu</span>
+
+<span class="k">histogram</span> harvest_price, normal title(<span class="s">"Distribution of simulated harvest prices"</span>)
+<span class="k">graph</span> box harvest_price, title(<span class="s">"Boxplot of harvest prices"</span>)
+
+<span class="c1">* Price risk: percentiles and the chance of a low price</span>
+<span class="k">centile</span> harvest_price,<span class="k"> centile</span>(<span class="m">5</span> <span class="m">95</span>)
+<span class="k">count if</span> harvest_price <span class="o">&lt;</span> <span class="m">3.80</span>
+<span class="k">display</span> <span class="s">"Probability price &lt; 3.80: "</span> <span class="nf">r</span>(N) <span class="o">/</span> _N
+</pre></div>
+</div></div><h3 id="s5-2-bar-chart"><span class="num">5.2</span> Bar Chart</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">input</span> str10 crop revenue_acre
+<span class="s">"Corn"</span>     <span class="m">765</span>
+<span class="s">"Soybeans"</span> <span class="m">599.5</span>
+<span class="s">"Wheat"</span>    <span class="m">280</span>
+<span class="s">"Sorghum"</span>  <span class="m">384.75</span>
+<span class="k">end</span>
+
+<span class="k">graph</span> bar revenue_acre, over(crop) ytitle(<span class="s">"Revenue (dollars per acre)"</span>) title(<span class="s">"Revenue per acre by crop"</span>)
+</pre></div>
+</div></div><h3 id="s5-3-supply-and-demand"><span class="num">5.3</span> Supply and Demand</h3>
+<p><code>twoway function</code> plots equations directly. Demand $Q_d = 100 - 8P$ and supply $Q_s = 20 + 12P$ are written with price on the vertical axis as $P = (100 - Q)/8$ and $P = (Q - 20)/12$. The equilibrium is $P = 4$ and $Q = 68$:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">twoway</span> (function y = (<span class="m">100</span> <span class="o">-</span> x)<span class="o">/</span><span class="m">8</span>,<span class="k"> range</span>(<span class="m">20</span> <span class="m">100</span>) lwidth(thick)) <span class="cs">///</span>
+       (function y = (x <span class="o">-</span> <span class="m">20</span>)<span class="o">/</span><span class="m">12</span>,<span class="k"> range</span>(<span class="m">20</span> <span class="m">110</span>) lwidth(thick)) <span class="cs">///</span>
+       (scatteri <span class="m">4</span> <span class="m">68</span>, msymbol(circle) mcolor(black)), <span class="cs">///</span>
+       xtitle(<span class="s">"Quantity"</span>) ytitle(<span class="s">"Price"</span>) <span class="cs">///</span>
+       legend(order(<span class="m">1</span> <span class="s">"Demand"</span> <span class="m">2</span> <span class="s">"Supply"</span>)) <span class="cs">///</span>
+       title(<span class="s">"Market equilibrium"</span>)
+
+<span class="k">graph</span> export <span class="s">"market_equilibrium.png"</span>,<span class="k"> replace</span> width(<span class="m">1600</span>)
+</pre></div>
+</div></div><p>The <code>///</code> at the end of a line continues the command on the next line, and <code>graph export</code> saves the graph as a high-quality image.</p><h2 id="s6-regression"><span class="num">6</span> Regression</h2>
+<p>We simulate a farm dataset: corn yield depends on fertilizer, rainfall, and irrigation.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">clear</span>
+<span class="k">set</span> obs <span class="m">200</span>
+<span class="k">set</span> seed <span class="m">42</span>
+<span class="k">generate</span> fertilizer = <span class="nf">runiform</span>(<span class="m">50</span>, <span class="m">200</span>)    <span class="c1">// lbs of nitrogen per acre</span>
+<span class="k">generate</span> rainfall   = <span class="nf">runiform</span>(<span class="m">15</span>, <span class="m">40</span>)     <span class="c1">// inches during the season</span>
+<span class="k">generate</span> irrigated  = <span class="nf">runiform</span>() <span class="o">&lt;</span> <span class="m">0.5</span>
+<span class="k">generate</span> yield_bu   = <span class="m">60</span> <span class="o">+</span> <span class="m">0.35</span><span class="o">*</span>fertilizer <span class="o">+</span> <span class="m">1.5</span><span class="o">*</span>rainfall <span class="o">+</span> <span class="m">20</span><span class="o">*</span>irrigated <span class="o">+</span> <span class="nf">rnormal</span>(<span class="m">0</span>, <span class="m">15</span>)
+<span class="k">generate</span> high_yield = yield_bu <span class="o">&gt;</span> <span class="m">160</span>
+<span class="k">summarize</span>
+</pre></div>
+</div></div><h3 id="s6-1-linear-and-multiple-regression"><span class="num">6.1</span> Linear and Multiple Regression</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">regress</span> yield_bu fertilizer                             <span class="c1">// simple regression</span>
+<span class="k">regress</span> yield_bu fertilizer rainfall irrigated          <span class="c1">// multiple regression</span>
+<span class="k">regress</span> yield_bu fertilizer rainfall irrigated, robust  <span class="c1">// robust standard errors</span>
+</pre></div>
+</div></div><h3 id="s6-2-probit-model"><span class="num">6.2</span> Probit Model</h3><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">probit</span> high_yield fertilizer rainfall irrigated
+margins,<span class="k"> dydx</span>(<span class="o">*</span>)       <span class="c1">// average marginal effects</span>
+</pre></div>
+</div></div><h3 id="s6-3-side-by-side-regression-tables"><span class="num">6.3</span> Side-by-Side Regression Tables</h3>
+<p>The free <code>estout</code> package builds tables (the first two lines install it if needed) like <code>stargazer</code> in R and can export them for Word:</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">capture which</span> esttab
+<span class="k">if</span> _rc <span class="o">!=</span> <span class="m">0</span><span class="k"> ssc</span> install estout,<span class="k"> replace</span>   <span class="c1">// installs estout once (needs internet)</span>
+
+eststo<span class="k"> clear</span>
+eststo m1:<span class="k"> regress</span> yield_bu fertilizer
+eststo m2:<span class="k"> regress</span> yield_bu fertilizer rainfall irrigated
+eststo m3:<span class="k"> probit</span> high_yield fertilizer rainfall irrigated
+esttab m1 m2 m3,<span class="k"> se</span> star(<span class="o">*</span> <span class="m">0.10</span> <span class="o">**</span> <span class="m">0.05</span> <span class="o">***</span> <span class="m">0.01</span>) mtitles(<span class="s">"OLS (1)"</span> <span class="s">"OLS (2)"</span> <span class="s">"Probit"</span>)
+esttab m1 m2 m3 using <span class="s">"regression_table.rtf"</span>,<span class="k"> se replace</span>   <span class="c1">// opens in Word</span>
+</pre></div>
+</div></div><h3 id="s6-4-regression-with-matrix-algebra"><span class="num">6.4</span> Regression with Matrix Algebra</h3>
+<p>Stata's matrix language, <strong>Mata</strong>, can compute OLS directly: $\hat\beta = (X'X)^{-1}X'y$.</p><div class="cell"><div class="code"><div class="hl"><pre><span></span><span class="k">mata</span>:
+    X = st_data(., (<span class="s">"fertilizer"</span>, <span class="s">"rainfall"</span>, <span class="s">"irrigated"</span>))
+    X = <span class="nf">J</span>(rows(X), <span class="m">1</span>, <span class="m">1</span>), X            <span class="c1">// add an intercept column</span>
+    y = st_data(., <span class="s">"yield_bu"</span>)
+    beta = <span class="nf">invsym</span>(X'X) <span class="o">*</span> X'y
+    beta'
+<span class="k">end</span>
+</pre></div>
+</div></div><p>The estimates should be close to the values used to simulate the data (0.35, 1.5, and 20), but not exact, because of the random noise. They also match the <code>regress</code> output above.</p>
+    <footer>Walter Ac-Pangan &middot; Stata Notes for AGECON &middot; October 2026</footer>
+  </main>
+</div>
+</body>
+</html>

@@ -51,9 +51,11 @@ Do this only once you are ready to retire the Google Site.
 
 ## Teaching notebooks
 
-The **Notebooks** menu links to two pages in `notebooks/`:
+The **Notebooks** menu and the R Programming Camp panel link to the pages in `notebooks/`:
 
-- `R_Notes_for_AGECON.html`: the R notebook (exported from RStudio as an `.nb.html` file).
-- `Py_Notes_for_AGECON.html`: the Python version, with `Py_Notes_for_AGECON.ipynb` available to download or open in Google Colab.
+- `R_Notes_for_AGECON.html`: the R notebook exported from RStudio. Its source is `R_Notes_for_AGECON.Rmd`.
+- `Py_Notes_for_AGECON.html`: the Python notes, with `Py_Notes_for_AGECON.ipynb` to download or open in Google Colab.
+- `SAS_Notes_for_AGECON.html`: SAS examples, with the runnable script `SAS_Notes_for_AGECON.sas`.
+- `Stata_Notes_for_AGECON.html`: Stata examples, with the runnable do-file `Stata_Notes_for_AGECON.do`.
 
-To update a notebook, replace its file in `notebooks/` with a new version under the same name.
+To update the R page: open `R_Notes_for_AGECON.Rmd` in RStudio (with `demographics.csv` in the same folder), click **Preview**, and upload the resulting `R_Notes_for_AGECON.nb.html` to `notebooks/`, renamed to `R_Notes_for_AGECON.html`.
