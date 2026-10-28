@@ -7,7 +7,7 @@ The whole site is one file, `index.html`, with its styles built in. There is no 
 ```
 index.html                  the website
 files/photo.jpg             profile photo (square, shown as a circle)
-files/CV_WalterAcPangan.pdf CV linked from the menu and the "CV (PDF)" button
+files/CV_WalterAcPangan.pdf CV linked from the menu
 files/courses/              course cover images used in the Teaching section
 notebooks/                  teaching notebooks linked from the "Notebooks" menu
 README.md                   this file
@@ -53,9 +53,8 @@ Do this only once you are ready to retire the Google Site.
 
 The **Notebooks** menu and the R Programming Camp panel link to the pages in `notebooks/`:
 
-- `R_Notes_for_AGECON.html`: the R notebook exported from RStudio. Its source is `R_Notes_for_AGECON.Rmd`.
+- `R_Notes_for_AGECON.html`: R examples, with the runnable script `R_Notes_for_AGECON.R` and the R Markdown source `R_Notes_for_AGECON.Rmd`.
 - `Py_Notes_for_AGECON.html`: the Python notes, with `Py_Notes_for_AGECON.ipynb` to download or open in Google Colab.
 - `SAS_Notes_for_AGECON.html`: SAS examples, with the runnable script `SAS_Notes_for_AGECON.sas`.
 - `Stata_Notes_for_AGECON.html`: Stata examples, with the runnable do-file `Stata_Notes_for_AGECON.do`.
 
-To update the R page: open `R_Notes_for_AGECON.Rmd` in RStudio (with `demographics.csv` in the same folder), click **Preview**, and upload the resulting `R_Notes_for_AGECON.nb.html` to `notebooks/`, renamed to `R_Notes_for_AGECON.html`.
