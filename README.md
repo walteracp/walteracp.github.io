@@ -53,6 +53,6 @@ Do this only once you are ready to retire the Google Site.
 
 The **Notebooks** menu and the R Programming Camp panel link to the pages in `notebooks/`: `R_Notes_for_AGECON.html`, `Py_Notes_for_AGECON.html`, `SAS_Notes_for_AGECON.html` and `Stata_Notes_for_AGECON.html`.
 
-There is no whole-notebook download. Each numbered section has **Copy section code** and **Download section code** buttons, and each code block has a **Copy** button, so students take the code one section at a time.
+There is no whole-notebook download. Each code block has a **Copy** button (shown on hover, always shown on phones).
 
 `R_Notes_for_AGECON.Rmd` is the source of the R page. It is not linked from the site.

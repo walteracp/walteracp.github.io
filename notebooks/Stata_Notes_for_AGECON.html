@@ -125,6 +125,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   }
 </style>
 
+
 <style id="seccode-css">
   .seccode { display:flex; gap:8px; margin:-4px 0 12px; }
   .seccode button { font:inherit; font-size:12px; letter-spacing:.02em; color:#2a5298; background:#fff; border:1px solid #2a5298; border-radius:3px; padding:3px 12px; cursor:pointer; }
@@ -502,6 +503,7 @@ esttab m1 m2 m3 using <span class="s">"regression_table.rtf"</span>,<span class=
   </main>
 </div>
 
+
 <script id="seccode-js">
 (function () {
   var EXT = "do", LANG = "Stata";
@@ -539,7 +541,6 @@ esttab m1 m2 m3 using <span class="s">"regression_table.rtf"</span>,<span class=
       setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 500);
     };
     bar.appendChild(b1); bar.appendChild(b2);
-    h.insertAdjacentElement("afterend", bar);
     cells.forEach(function (c) {
       var b = document.createElement("button"); b.type = "button"; b.className = "copy1"; b.textContent = "Copy";
       b.onclick = function () { copy(codeText(c) + "\n", b, "Copy"); };
