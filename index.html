@@ -207,7 +207,12 @@
     .course-name { font-size: 14px; }
     .course-role { flex-shrink: 0; font-size: 12px; color: var(--ink-3); }
     .course-note { margin-top: 2px; font-size: 12px; color: var(--ink-3); }
-    .course-link { margin-top: 4px; font-size: 12px; }
+    .course-details { margin-top: 6px; }
+    .course-panel { display: grid; grid-template-columns: 250px 1fr; gap: 24px; margin-top: 12px; align-items: start; }
+    .course-panel img { width: 100%; height: auto; border-radius: 3px; border: 1px solid var(--rule); }
+    details.abstract .course-panel p { border-left: none; padding-left: 0; margin-top: 0; }
+    .panel-title { font-family: var(--serif); font-size: 16px; color: var(--ink) !important; margin-bottom: 6px; }
+    .panel-text { text-align: justify; margin-bottom: 12px; }
 
     /* ---------- Contact & footer ---------- */
     section.contact { border-bottom: none; }
@@ -228,6 +233,7 @@
       .topbar { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 0 12px; }
       .topbar ul { gap: 16px; flex-wrap: wrap; }
       .rows li, .course-row { flex-direction: column; gap: 0; }
+      .course-panel { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 4px; }
     }
   </style>
@@ -416,32 +422,110 @@
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 4514 &mdash; Advanced Agribusiness Marketing</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
     <p class="course-note">Project-based course: student teams build a strategic marketing plan for an agri-food product or service. 45 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AAEC4514_AdvanceAgManagement/blob/main/AAEC4514_Adv_Ag_Mkt_Syllabus_Fall25.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/aaec4514.jpg" alt="AAEC 4514 - Advanced Agribusiness Marketing course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">A project-based course that emphasizes applying concepts, principles, and analytical tools to develop strategic marketing plans for existing or new agri-food products and services. Students work in teams to identify target markets, conduct competitive market analyses, outline assumptions and objectives, and design comprehensive marketing strategies tailored to the agri-food sector.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AAEC4514_AdvanceAgManagement/blob/main/AAEC4514_Adv_Ag_Mkt_Syllabus_Fall25.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AAEC4514_AdvanceAgManagement/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 3504 &mdash; Marketing Agricultural Products</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
     <p class="course-note">Economics of agricultural marketing channels, market structure, contracts, vertical integration, and market power. 80 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AAEC3504_MarketingAgProducts/blob/main/AAEC3504_Mkt_Ag_Products_Syllabus_Fall25.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/aaec3504.jpg" alt="AAEC 3504 - Marketing Agricultural Products course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">Focuses on the economics of the U.S. and Virginia agricultural and food marketing systems. The course examines agricultural commodity marketing channels from the farm gate to the consumer&rsquo;s plate, and how prices, consumer preferences, government regulations, and international competition shape them. Topics include consumer responses to food prices; the structure of processors, wholesalers, retailers, and food service providers; alternative marketing outlets; and contracts, vertical integration, market power, and antitrust behavior.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AAEC3504_MarketingAgProducts/blob/main/AAEC3504_Mkt_Ag_Products_Syllabus_Fall25.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AAEC3504_MarketingAgProducts/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 3454 &mdash; Small Business Management and Entrepreneurship</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2026</span></div>
     <p class="course-note">Early-stage venture creation in agriculture: opportunity assessment, feasibility analysis, and business concepts. 52 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AAEC_3454_Small_Bus_Entreprenurship/blob/main/AAEC_3454_Syllabus_Spring26.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/aaec3454.jpg" alt="AAEC 3454 - Small Business Management and Entrepreneurship course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">Develops students&rsquo; entrepreneurial mindset with a focus on early-stage venture creation in the agricultural sector. Students learn to assess entrepreneurial opportunities, generate and evaluate business ideas through feasibility analysis, and develop and communicate viable business concepts, building the skills needed to identify opportunities, mobilize resources, and launch new ventures.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AAEC_3454_Small_Bus_Entreprenurship/blob/main/AAEC_3454_Syllabus_Spring26.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AAEC_3454_Small_Bus_Entreprenurship/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 2434 &mdash; Foundations of Agribusiness</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2026</span></div>
     <p class="course-note">Introduction to agribusiness through new ventures and established operations, with a semester-long team project. 58 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AAEC_2434_Foundation_AgBusiness/blob/main/AAEC_2434_Syllabus_Spring26.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/aaec2434.jpg" alt="AAEC 2434 - Foundations of Agribusiness course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">Introduces students to the agricultural and food industries through the perspectives of new venture creation and the management of established agribusiness operations. Students explore fundamental economic, financial, and management concepts and tools, including financial statement analysis, budgeting, and risk management, applied through a semester-long team project.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AAEC_2434_Foundation_AgBusiness/blob/main/AAEC_2434_Syllabus_Spring26.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AAEC_2434_Foundation_AgBusiness/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AGEC 115 &mdash; Decision Tools for Agricultural Economics and Agribusiness</span><span class="course-role">Instructor &middot; Kansas State &middot; 2024</span></div>
     <p class="course-note">Excel-based analytical skills for business and economic problems in food and agriculture. 20 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AGEC115_DecisionToolsForAgEcon/blob/main/AGEC115%20Decision%20Tools%20for%20AGECON%20Syllabus.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/agec115.jpg" alt="AGEC 115 - Decision Tools for Agricultural Economics and Agribusiness course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">Develops computer-based analytical skills to address economic and business challenges in the food and agriculture sectors. Students use Microsoft Excel to analyze real-world problems in agribusiness, finance, and data processing, including data visualization, data cleansing, cell references and functions, and logical formulas.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AGEC115_DecisionToolsForAgEcon/blob/main/AGEC115%20Decision%20Tools%20for%20AGECON%20Syllabus.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AGEC115_DecisionToolsForAgEcon/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AGEC 632 &mdash; Agribusiness Logistics</span><span class="course-role">Instructor &middot; Kansas State &middot; 2021</span></div>
     <p class="course-note">Supply chain and logistics in agrifood systems: transportation, storage, processing, and inventory. 22 students.</p>
-    <p class="course-link"><a href="https://github.com/walteracp/AGEC615_Agribusiness_Logistics/blob/main/%281%29%20AGEC%20632%20Agribusiness%20Syllabus%20%20Fall%202021.pdf" target="_blank" rel="noopener">Syllabus and Course Materials</a></p>
+    <details class="abstract course-details">
+      <summary>Course Details</summary>
+      <div class="course-panel">
+        <img src="files/courses/agec632.jpg" alt="AGEC 632 - Agribusiness Logistics course cover" loading="lazy">
+        <div>
+          <p class="panel-title">Course Description</p>
+          <p class="panel-text">Examines supply chain and logistics management from a practical perspective, emphasizing how effective materials management provides a significant competitive advantage. Students learn to plan for the efficient and resilient use of transportation, storage, and processing facilities in handling raw materials and products within agribusiness firms.</p>
+          <div class="buttons">
+            <a href="https://github.com/walteracp/AGEC615_Agribusiness_Logistics/blob/main/%281%29%20AGEC%20632%20Agribusiness%20Syllabus%20%20Fall%202021.pdf" target="_blank" rel="noopener">Syllabus</a>
+            <a href="https://github.com/walteracp/AGEC615_Agribusiness_Logistics/tree/main/Slides" target="_blank" rel="noopener">Course Materials</a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">R Programming Camp for incoming M.S. and Ph.D. students</span><span class="course-role">Instructor &middot; Kansas State &middot; 2023, 2024</span></div>
