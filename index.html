@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Walter Ac-Pangan is an agricultural economist (Ph.D., Kansas State University) working on forecasting, trade policy, and agribusiness, using machine learning, remote sensing, and econometrics.">
+  <title>Walter Ac-Pangan | Agricultural Economist</title>
+  <link rel="icon" href="files/photo.jpg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-2: #555;
+      --ink-3: #888;
+      --rule: #e0e0e0;
+      --paper: #fff;
+      --blue: #2a5298;
+      --blue-wash: #eef2fb;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { scroll-padding-top: 72px; }
+
+    body {
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--paper);
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---------- Top navigation ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .topbar .brand {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--ink);
+    }
+    .topbar .brand:hover { text-decoration: none; }
+    .topbar ul { list-style: none; display: flex; gap: 24px; }
+    .topbar ul a {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--ink-2);
+    }
+    .topbar ul a:hover { color: var(--blue); text-decoration: none; }
+
+    /* ---------- Intro ---------- */
+    .intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 36px;
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .portrait {
+      width: 260px;
+      height: 260px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--rule);
+    }
+    .intro h1 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: normal;
+      margin-bottom: 4px;
+    }
+    .intro .position {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-2);
+      margin-bottom: 16px;
+    }
+    .intro .interests {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--ink-3);
+      margin-bottom: 14px;
+    }
+    .intro .lede {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink-2);
+      max-width: 560px;
+      margin-bottom: 14px;
+    }
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .buttons a {
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      padding: 5px 14px;
+      border: 1px solid var(--blue);
+      border-radius: 3px;
+    }
+    .buttons a:hover { background: var(--blue); color: #fff; text-decoration: none; }
+
+    /* ---------- Sections ---------- */
+    section.block {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 24px;
+    }
+    .subhead {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 36px 0 18px;
+    }
+
+    /* ---------- Papers ---------- */
+    .work { margin-bottom: 28px; }
+    .work:last-child { margin-bottom: 0; }
+    .work-title { font-family: var(--serif); font-size: 15px; margin-bottom: 4px; }
+    .work-authors { font-size: 12px; color: var(--ink-3); margin-bottom: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .chip {
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 2px;
+      background: #f4f4f4;
+      color: var(--ink-3);
+    }
+    .chip.lead { background: var(--blue-wash); color: var(--blue); font-weight: 600; }
+    .work-links { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+    .work-links a { font-size: 12px; }
+
+    details.abstract summary {
+      list-style: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--blue);
+    }
+    details.abstract summary::-webkit-details-marker { display: none; }
+    details.abstract summary::before {
+      content: "\25B6";
+      font-size: 10px;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    details.abstract[open] summary::before { transform: rotate(90deg); }
+    details.abstract summary:hover { text-decoration: underline; }
+    details.abstract p {
+      margin-top: 10px;
+      padding-left: 14px;
+      border-left: 2px solid var(--rule);
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--ink-2);
+    }
+
+    /* ---------- Simple lists (talks, news) ---------- */
+    .rows { list-style: none; }
+    .rows li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .rows li:last-child { border-bottom: none; }
+    .rows .what { color: var(--ink); }
+    .rows .where { color: var(--ink-3); }
+    .rows .when { flex-shrink: 0; font-size: 12px; color: var(--ink-3); }
+
+    /* ---------- Teaching ---------- */
+    .course { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    .course:last-child { border-bottom: none; }
+    .course-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .course-name { font-size: 14px; }
+    .course-role { flex-shrink: 0; font-size: 12px; color: var(--ink-3); }
+    .course-note { margin-top: 2px; font-size: 12px; color: var(--ink-3); }
+
+    /* ---------- Contact & footer ---------- */
+    section.contact { border-bottom: none; }
+    .contact p:not(.eyebrow) { font-size: 14px; color: var(--ink-2); margin-bottom: 14px; }
+    .contact .small { font-size: 13px; color: var(--ink-3); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 24px 0;
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+
+    @media (max-width: 600px) {
+      .intro { flex-direction: column; gap: 20px; }
+      .portrait { width: 180px; height: 180px; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 0 12px; }
+      .topbar ul { gap: 16px; flex-wrap: wrap; }
+      .rows li, .course-row { flex-direction: column; gap: 0; }
+      footer { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="#about">Walter Ac-Pangan</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="files/CV_WalterAcPangan.pdf">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============================ ABOUT ============================ -->
+<header class="intro" id="about">
+  <img class="portrait" src="files/photo.jpg" alt="Portrait of Walter Ac-Pangan">
+  <div>
+    <h1>Walter Ac-Pangan</h1>
+    <p class="position">
+      Agricultural Economist<br>
+      Ph.D. in Agricultural Economics, Kansas State University (2025)<br>
+      Previously Agribusiness Instructor, Virginia Tech
+    </p>
+    <p class="interests">Forecasting &nbsp;&middot;&nbsp; Trade Policy &nbsp;&middot;&nbsp; Agribusiness &nbsp;&middot;&nbsp; Machine Learning in Agricultural Economics</p>
+    <p class="lede">
+      Welcome! I am an agricultural economist working at the intersection of forecasting, agribusiness, and trade policy. I build forecasting models with machine learning, remote sensing, and econometrics, and I have studied supply chains for corn, soybeans, rice, cocoa, beef cattle, and citrus in the United States and Latin America.
+    </p>
+    <p class="lede">
+      I am currently on the job market for research, industry, and international development positions. Feel free to reach out &mdash; I would love to connect.
+    </p>
+    <div class="buttons">
+      <a href="files/CV_WalterAcPangan.pdf">CV (PDF)</a>
+      <a href="mailto:wacpangan@outlook.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=NnL2iY4AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/walter-ac-pangan-784a29138/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/walteracp" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://orcid.org/0000-0003-1588-6361" target="_blank" rel="noopener">ORCID</a>
+    </div>
+  </div>
+</header>
+
+<!-- =========================== RESEARCH =========================== -->
+<section class="block" id="research">
+  <p class="eyebrow">Research</p>
+
+  <article class="work">
+    <p class="work-title">In-Season U.S. Corn Acreage Forecasting Using Machine Learning</p>
+    <p class="work-authors">with Nathan P. Hendricks</p>
+    <div class="chips">
+      <span class="chip lead">Job market paper</span>
+      <span class="chip">USDA NASS &middot; Weather &middot; 35 states &middot; 1990&ndash;2024</span>
+    </div>
+    <div class="work-links"><a href="mailto:wacpangan@outlook.com?subject=Job%20market%20paper%20draft">Draft (available upon request)</a></div>
+    <details class="abstract">
+      <summary>Abstract</summary>
+      <p>
+        This paper develops machine learning models that produce in-season forecasts of U.S. corn planted acreage at the county and state levels, designed to complement the USDA's World Agricultural Supply and Demand Estimates (WASDE). The models are trained on publicly available in-season information, using a panel of 95 variables covering weather, market and field conditions, and historical acreage, yields, and production for 35 states (about 98% of U.S. corn production) from 1990 to 2024. Machine learning substantially improves predictive accuracy, and "days suitable for fieldwork" emerges as the strongest predictor across models. Incorporating survey-based planting intentions improves accuracy by 30&ndash;48%, showing that farmer survey data carries information that modeling complexity alone cannot replace. The framework provides acreage forecasts in months when the USDA does not release updated estimates.
+      </p>
+    </details>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Effects of Non-Tariff Trade Barriers in Grain Markets: The Case of the Rice Export Ban Imposed by India</p>
+    <p class="work-authors">with Nathan P. Hendricks</p>
+    <div class="chips">
+      <span class="chip">Working paper</span>
+      <span class="chip">Gravity model &middot; Event study &middot; Rice trade</span>
+    </div>
+    <details class="abstract">
+      <summary>Summary</summary>
+      <p>
+        This paper uses a gravity model within an event-study framework to estimate how India's rice export ban affected global trade flows, identifying the effects of non-tariff barriers on grain markets.
+      </p>
+    </details>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Identifying Gaps in Food Manufacturing Business: Local Drivers and Impediments for Small Agri-Food Businesses</p>
+    <p class="work-authors">with P. Sharma, J. Kim, H. Peterson, A. Shanoyan, and J. Yu</p>
+    <div class="chips">
+      <span class="chip">Revised and resubmitted, <em>Applied Economic Perspectives and Policy</em></span>
+    </div>
+    <details class="abstract">
+      <summary>Summary</summary>
+      <p>
+        This project investigates the factors driving the establishment of new local food manufacturing businesses in the Heartland region of the United States. Discrepancies between the predicted and actual number of businesses provide insights for policymakers to prioritize resource allocation and support economic development in under-resourced counties.
+      </p>
+    </details>
+  </article>
+
+  <article class="work">
+    <p class="work-title">A Unified Algorithm for Penalized Likelihoods in Model Selection of Spatial-Temporal Models for Lattice Data</p>
+    <p class="work-authors">with F. Jo, P. Reyes, and N.P. Hendricks</p>
+    <div class="chips">
+      <span class="chip">Submitted, <em>Journal of the Royal Statistical Society</em></span>
+      <span class="chip">County corn yields &middot; Weather &middot; Soils</span>
+    </div>
+    <details class="abstract">
+      <summary>Summary</summary>
+      <p>
+        This project investigates the spatial dependence structure of county-level data using corn yields, weather, and soil characteristics, evaluating how environmental factors influence crop production while accounting for spatial correlation.
+      </p>
+    </details>
+  </article>
+
+  <p class="subhead">Work in progress</p>
+
+  <article class="work">
+    <p class="work-title">In-Season Forecasting of Corn Yields Using Remote Sensing Data</p>
+    <p class="work-authors">with M. Ortez, Y. Zhang, and M. Cary</p>
+    <div class="chips"><span class="chip">In progress</span><span class="chip">Remote sensing &middot; Weather</span></div>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Basis Prediction Error in Live Cattle Markets Using Machine Learning</p>
+    <p class="work-authors">with Brian K. Coffey</p>
+    <div class="chips"><span class="chip">In progress</span><span class="chip">Live cattle &middot; Hedging</span></div>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Cocoa Commodity Market Analysis: Supply, Marketing, and Price Discovery Mechanisms</p>
+    <p class="work-authors">Solo authored</p>
+    <div class="chips"><span class="chip">In progress</span><span class="chip">Cocoa &middot; Price discovery</span></div>
+  </article>
+
+  <p class="subhead">Publications</p>
+
+  <article class="work">
+    <p class="work-title">Forecasting Grain Supply of Low and Middle-Income Countries</p>
+    <p class="work-authors">with N.P. Hendricks, Y.A. Zereyesus, and J. Kee &nbsp;&middot;&nbsp; <em>Agricultural and Resource Economics Review</em>, 2026</p>
+    <div class="chips"><span class="chip">78 countries &middot; 5 staple grains &middot; USDA-ERS</span></div>
+    <div class="work-links"><a href="https://doi.org/10.1017/age.2026.10040" target="_blank" rel="noopener">Article (DOI)</a></div>
+    <details class="abstract">
+      <summary>Summary</summary>
+      <p>
+        This paper evaluates econometric and machine learning forecasting techniques through out-of-sample forecasting, using production data for corn, soybeans, wheat, sorghum, and rice together with price and weather data from 78 countries. The proposed methodology improves the accuracy of the forecasting model used in the USDA Economic Research Service's annual International Food Security Assessment.
+      </p>
+    </details>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Special Article: Projecting Long-Term Staple Grain Production for the International Food Security Assessment: A Time Series Cross-Validation Approach</p>
+    <p class="work-authors">with Y.A. Zereyesus, J. Kee, N.P. Hendricks, L. Cardell, N.J. Nava, J. Jellife, and S. Morgan &nbsp;&middot;&nbsp; USDA ERS, <em>International Food Security Assessment, 2023&ndash;2033</em>, 2023</p>
+    <div class="work-links"><a href="https://www.ers.usda.gov/webdocs/outlooks/107271/gfa-34.pdf?v=916.1" target="_blank" rel="noopener">Report (PDF)</a></div>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Impact of a Soil Conditioner Integrated into Fertilization Scheme on Orange and Lemon Seedling Physiological Performances</p>
+    <p class="work-authors">with L. Rossi, L.M. Hallman, and S.N. Adams &nbsp;&middot;&nbsp; <em>Plants</em> 9(7): 812, 2020</p>
+    <div class="work-links"><a href="https://doi.org/10.3390/plants9070812" target="_blank" rel="noopener">Article (DOI)</a></div>
+  </article>
+
+  <article class="work">
+    <p class="work-title">Effects of Soil Salinity on Citrus Rootstock &lsquo;US-942&rsquo; Physiology and Anatomy</p>
+    <p class="work-authors">with S.N. Adams and L. Rossi &nbsp;&middot;&nbsp; <em>HortScience</em> 54(5): 787&ndash;792, 2019</p>
+    <div class="work-links"><a href="https://doi.org/10.21273/HORTSCI13868-19" target="_blank" rel="noopener">Article (DOI)</a></div>
+  </article>
+</section>
+
+<!-- ========================= PRESENTATIONS ======================== -->
+<section class="block" id="presentations">
+  <p class="eyebrow">Presentations</p>
+  <ul class="rows">
+    <li><span class="what">Australasian Agricultural and Resource Economics Society (AARES) Annual Conference</span><span class="when">2025, 2026</span></li>
+    <li><span class="what">Agricultural and Applied Economics Association (AAEA) Annual Meeting</span><span class="when">2023, 2024, 2025</span></li>
+    <li><span class="what">NCCC-134 Conference on Applied Commodity Price Analysis, Forecasting, and Market Risk Management</span><span class="when">2021, 2023</span></li>
+    <li><span class="what">International Food and Agribusiness Management Association (IFAMA) World Conference</span><span class="when">2023</span></li>
+    <li><span class="what">AI and the Future Symposium, Kansas State University</span><span class="when">2024</span></li>
+    <li><span class="what">American Society for Horticultural Science (ASHS) Annual Conference</span><span class="when">2019</span></li>
+  </ul>
+
+  <p class="subhead">Invited seminars</p>
+  <ul class="rows">
+    <li><span><span class="what">Forecasting Crop Acreage and Yield in the US: Machine Learning Applications</span> <span class="where">&middot; Fresno State University</span></span><span class="when">2026</span></li>
+    <li><span><span class="what">Machine Learning Applications for Forecasting in Latin American Agriculture</span> <span class="where">&middot; Zamorano University (online)</span></span><span class="when">2025</span></li>
+  </ul>
+</section>
+
+<!-- ============================ TEACHING ========================== -->
+<section class="block" id="teaching">
+  <p class="eyebrow">Teaching</p>
+
+  <div class="course">
+    <div class="course-row"><span class="course-name">AAEC 4514 &mdash; Advanced Agribusiness Marketing</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
+    <p class="course-note">Project-based course: student teams build a strategic marketing plan for an agri-food product or service. 45 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AAEC 3504 &mdash; Marketing Agricultural Products</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
+    <p class="course-note">Economics of agricultural marketing channels, market structure, contracts, vertical integration, and market power. 80 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AAEC 3454 &mdash; Small Business Management and Entrepreneurship</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2026</span></div>
+    <p class="course-note">Early-stage venture creation in agriculture: opportunity assessment, feasibility analysis, and business concepts. 52 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AAEC 2434 &mdash; Foundations of Agribusiness</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2026</span></div>
+    <p class="course-note">Introduction to agribusiness through new ventures and established operations, with a semester-long team project. 58 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AGEC 115 &mdash; Decision Tools for Agricultural Economics and Agribusiness</span><span class="course-role">Instructor &middot; Kansas State &middot; 2024</span></div>
+    <p class="course-note">Excel-based analytical skills for business and economic problems in food and agriculture. 20 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AGEC 632 &mdash; Agribusiness Logistics</span><span class="course-role">Instructor &middot; Kansas State &middot; 2021</span></div>
+    <p class="course-note">Supply chain and logistics in agrifood systems: transportation, storage, processing, and inventory. 22 students.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">R Programming Camp for incoming M.S. and Ph.D. students</span><span class="course-role">Instructor &middot; Kansas State &middot; 2023, 2024</span></div>
+  </div>
+
+  <p class="subhead">Other teaching</p>
+  <div class="course">
+    <div class="course-row"><span class="course-name">ECON 890 &mdash; Computational Methods for Economics</span><span class="course-role">Guest lecturer &middot; Kansas State &middot; 2024</span></div>
+    <p class="course-note">Lectures: &ldquo;Mapping in Python&rdquo; and &ldquo;Random Forest Models for Global Supply Forecasting.&rdquo;</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">International Grains Program, Kansas State University</span><span class="course-role">Interpreter &middot; 2021</span></div>
+    <p class="course-note">English&ndash;Spanish translator and interpreter for online courses delivered in Mexico and Colombia.</p>
+  </div>
+  <div class="course">
+    <div class="course-row"><span class="course-name">AGEC 615 &mdash; Global Agricultural Development; AGEC 120 &mdash; Agricultural Economics and Agribusiness</span><span class="course-role">Teaching assistant &middot; Kansas State &middot; 2019</span></div>
+  </div>
+</section>
+
+<!-- ============================== NEWS ============================ -->
+<section class="block" id="news">
+  <p class="eyebrow">Recognition &amp; News</p>
+  <ul class="rows">
+    <li><span><a class="what" href="https://www.ageconomics.k-state.edu/news/newsletters/exchange/2025%20Exchange.pdf#page=26" target="_blank" rel="noopener">&ldquo;A Global Voice in Agricultural Economics&rdquo;</a> <span class="where">&middot; K-State Agricultural Economics <em>Exchange</em></span></span><span class="when">2025</span></li>
+    <li><span><a class="what" href="https://www.aaea.org/about-aaea/awards-and-honors/aaea-annual-awards/aaea-annual-award-winners/2024-annual-award-winners" target="_blank" rel="noopener">First place, AAEA / USDA-AMS Local Food Economics Data Visualization Challenge</a></span><span class="when">2024</span></li>
+    <li><span><a class="what" href="https://www.ifama.org/Student-Case-Winners-2023" target="_blank" rel="noopener">First place (graduate), IFAMA Global Student Case Competition</a></span><span class="when">2023</span></li>
+    <li><span><span class="what">First place in academic performance, <em>summa cum laude</em></span> <span class="where">&middot; Zamorano University</span></span><span class="when">2017</span></li>
+  </ul>
+</section>
+
+<!-- ============================= CONTACT ========================== -->
+<section class="block contact" id="contact">
+  <p class="eyebrow">Contact</p>
+  <p>I am always happy to talk about research, forecasting, agricultural markets, or job opportunities. The best way to reach me is by email.</p>
+  <p><a href="mailto:wacpangan@outlook.com">wacpangan@outlook.com</a></p>
+  <p class="small">Guatemala &middot; English and Spanish</p>
+</section>
+
+<footer>
+  <span>Walter Ac-Pangan</span>
+  <span>Last updated October 2026</span>
+</footer>
+
+</body>
+</html>
