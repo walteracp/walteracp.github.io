@@ -8,6 +8,8 @@ The whole site is one file, `index.html`, with its styles built in. There is no 
 index.html                  the website
 files/photo.jpg             profile photo (square, shown as a circle)
 files/CV_WalterAcPangan.pdf CV linked from the menu and the "CV (PDF)" button
+files/courses/              course cover images used in the Teaching section
+notebooks/                  teaching notebooks linked from the "Notebooks" menu
 README.md                   this file
 ```
 
@@ -46,3 +48,12 @@ Do this only once you are ready to retire the Google Site.
 - **New paper:** copy an existing `<article class="work">` block and edit it. The grey chips are tags, a `chip lead` is highlighted in blue, and the `<details class="abstract">` block is the abstract that opens on click.
 - **CV:** replace `files/CV_WalterAcPangan.pdf` with the new PDF under the same name.
 - **Date:** update "Last updated" in the footer.
+
+## Teaching notebooks
+
+The **Notebooks** menu links to two pages in `notebooks/`:
+
+- `R_Notes_for_AGECON.html`: the R notebook (exported from RStudio as an `.nb.html` file).
+- `Py_Notes_for_AGECON.html`: the Python version, with `Py_Notes_for_AGECON.ipynb` available to download or open in Google Colab.
+
+To update a notebook, replace its file in `notebooks/` with a new version under the same name.

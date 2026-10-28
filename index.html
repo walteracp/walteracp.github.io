@@ -64,6 +64,42 @@
     }
     .topbar ul a:hover { color: var(--blue); text-decoration: none; }
 
+    /* Notebooks drop-down */
+    .dropdown { position: relative; }
+    .dropdown summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--ink-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dropdown summary::-webkit-details-marker { display: none; }
+    .dropdown summary::after { content: "\25BE"; font-size: 10px; }
+    .dropdown summary:hover, .dropdown[open] summary { color: var(--blue); }
+    .dropdown .menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 12px);
+      min-width: 210px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      padding: 6px 0;
+      z-index: 20;
+    }
+    .dropdown .menu a {
+      display: block;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .dropdown .menu a:hover { background: var(--blue-wash); color: var(--blue); }
+
     /* ---------- Intro ---------- */
     .intro {
       display: flex;
@@ -246,6 +282,15 @@
     <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
     <li><a href="#teaching">Teaching</a></li>
+    <li>
+      <details class="dropdown">
+        <summary>Notebooks</summary>
+        <div class="menu">
+          <a href="notebooks/R_Notes_for_AGECON.html">R Notes for AGECON</a>
+          <a href="notebooks/Py_Notes_for_AGECON.html">Py Notes for AGECON</a>
+        </div>
+      </details>
+    </li>
     <li><a href="files/CV_WalterAcPangan.pdf">CV</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -564,6 +609,18 @@
   <span>Walter Ac-Pangan</span>
   <span>Last updated October 2026</span>
 </footer>
+
+<script>
+  // Close the Notebooks menu when clicking anywhere else or pressing Escape
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll("details.dropdown[open]").forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute("open");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") document.querySelectorAll("details.dropdown[open]").forEach(function (d) { d.removeAttribute("open"); });
+  });
+</script>
 
 </body>
 </html>
