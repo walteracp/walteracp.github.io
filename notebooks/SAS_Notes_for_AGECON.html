@@ -124,6 +124,16 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     header.doc h1 { font-size:25px; }
   }
 </style>
+
+<style id="seccode-css">
+  .seccode { display:flex; gap:8px; margin:-4px 0 12px; }
+  .seccode button { font:inherit; font-size:12px; letter-spacing:.02em; color:#2a5298; background:#fff; border:1px solid #2a5298; border-radius:3px; padding:3px 12px; cursor:pointer; }
+  .seccode button:hover { background:#2a5298; color:#fff; }
+  .cell .code { position:relative; }
+  .cell .code .copy1 { position:absolute; top:6px; right:6px; font:inherit; font-size:11px; color:#555; background:#fff; border:1px solid #d5dbe5; border-radius:3px; padding:1px 8px; cursor:pointer; opacity:0; transition:opacity .15s; }
+  .cell .code:hover .copy1, .cell .code .copy1:focus { opacity:1; }
+  @media (hover:none) { .cell .code .copy1 { opacity:1; } }
+</style>
 </head>
 <body>
 <div class="top">
@@ -138,7 +148,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <div class="meta">Walter Ac-Pangan, Ph.D. &middot; October 2026</div>
       <p>These notes introduce SAS for agricultural economics, following the same topics as the <a href="R_Notes_for_AGECON.html">R Notes</a> and <a href="Py_Notes_for_AGECON.html">Py Notes for AGECON</a>. The examples are intentionally basic and use economics problems throughout.</p>
       <div class="note">Run the examples in SAS Studio (SAS OnDemand for Academics is free for students). Results are not shown on this page: run each example yourself to see them. Every section creates its own practice data, so the code runs without any files (except the few examples marked to use your own folder). SAS shows results in the <strong>Results</strong> tab and messages in the <strong>Log</strong>.</div>
-      <div class="actions"><a href="SAS_Notes_for_AGECON.sas" download>Download the SAS script (.sas)</a></div>
     </header>
     <h2 id="s1-introduction-to-sas"><span class="num">1</span> Introduction to SAS</h2>
 <p>SAS is a statistical software system widely used in government agencies, agribusiness, banking, and health research. It is especially good at managing large datasets and producing reliable statistical reports. Many USDA and land-grant university analyses are done in SAS.</p>
@@ -594,5 +603,52 @@ run;
     <footer>Walter Ac-Pangan &middot; SAS Notes for AGECON &middot; October 2026</footer>
   </main>
 </div>
+
+<script id="seccode-js">
+(function () {
+  var EXT = "sas", LANG = "SAS";
+  var main = document.querySelector("main");
+  var heads = Array.prototype.slice.call(main.querySelectorAll("h2[id], h3[id]"));
+  function codeText(cell) { return cell.querySelector(".code pre").innerText.replace(/\s+$/, ""); }
+  function copy(text, btn, label) {
+    function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = label; }, 1400); }
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done); return; }
+    var t = document.createElement("textarea"); t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select(); try { document.execCommand("copy"); done(); } catch (e) {} document.body.removeChild(t);
+  }
+  heads.forEach(function (h, i) {
+    var cells = [], el = h.nextElementSibling;
+    while (el && heads.indexOf(el) < 0 && el.tagName !== "FOOTER") {
+      if (el.classList.contains("cell")) cells.push(el);
+      el = el.nextElementSibling;
+    }
+    // a section heading (h2) followed directly by subsections gets no buttons of its own
+    if (!cells.length) return;
+    var num = (h.querySelector(".num") || {}).textContent || String(i + 1);
+    var title = h.textContent.replace(num, "").trim();
+    var cmt = EXT === "sas" ? function (s) { return "/* " + s + " */"; } : EXT === "do" ? function (s) { return "* " + s; } : function (s) { return "# " + s; };
+    function sectionCode() {
+      return cmt(LANG + " Notes for AGECON - " + num + " " + title) + "\n\n" + cells.map(codeText).join("\n\n") + "\n";
+    }
+    var bar = document.createElement("div"); bar.className = "seccode";
+    var b1 = document.createElement("button"); b1.type = "button"; b1.textContent = "Copy section code";
+    b1.onclick = function () { copy(sectionCode(), b1, "Copy section code"); };
+    var b2 = document.createElement("button"); b2.type = "button"; b2.textContent = "Download section code";
+    b2.onclick = function () {
+      var name = LANG + "_Notes_" + num.replace(/\./g, "-") + "_" + title.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, "") + "." + EXT;
+      var url = URL.createObjectURL(new Blob([sectionCode()], { type: "text/plain" }));
+      var a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 500);
+    };
+    bar.appendChild(b1); bar.appendChild(b2);
+    h.insertAdjacentElement("afterend", bar);
+    cells.forEach(function (c) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "copy1"; b.textContent = "Copy";
+      b.onclick = function () { copy(codeText(c) + "\n", b, "Copy"); };
+      c.querySelector(".code").appendChild(b);
+    });
+  });
+})();
+</script>
 </body>
 </html>

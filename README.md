@@ -51,10 +51,8 @@ Do this only once you are ready to retire the Google Site.
 
 ## Teaching notebooks
 
-The **Notebooks** menu and the R Programming Camp panel link to the pages in `notebooks/`:
+The **Notebooks** menu and the R Programming Camp panel link to the pages in `notebooks/`: `R_Notes_for_AGECON.html`, `Py_Notes_for_AGECON.html`, `SAS_Notes_for_AGECON.html` and `Stata_Notes_for_AGECON.html`.
 
-- `R_Notes_for_AGECON.html`: R examples, with the runnable script `R_Notes_for_AGECON.R` and the R Markdown source `R_Notes_for_AGECON.Rmd`.
-- `Py_Notes_for_AGECON.html`: the Python notes, with `Py_Notes_for_AGECON.ipynb` to download or open in Google Colab.
-- `SAS_Notes_for_AGECON.html`: SAS examples, with the runnable script `SAS_Notes_for_AGECON.sas`.
-- `Stata_Notes_for_AGECON.html`: Stata examples, with the runnable do-file `Stata_Notes_for_AGECON.do`.
+There is no whole-notebook download. Each numbered section has **Copy section code** and **Download section code** buttons, and each code block has a **Copy** button, so students take the code one section at a time.
 
+`R_Notes_for_AGECON.Rmd` is the source of the R page. It is not linked from the site.
