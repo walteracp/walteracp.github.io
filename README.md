@@ -56,3 +56,7 @@ The **Notebooks** menu and the R Programming Camp panel link to the pages in `no
 There is no whole-notebook download. Each code block has a **Copy** button (shown on hover, always shown on phones).
 
 `R_Notes_for_AGECON.Rmd` is the source of the R page. It is not linked from the site.
+
+## License
+
+Code is released under the MIT License (see `LICENSE`). Papers and figures © Walter Ac-Pangan, all rights reserved.
