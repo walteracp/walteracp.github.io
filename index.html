@@ -267,6 +267,30 @@
       color: var(--ink-3);
     }
 
+
+    /* ---------- Teaching photo carousel ---------- */
+    .carousel { position: relative; margin: 6px 0 26px; }
+    .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      border-radius: 6px; scrollbar-width: none; outline-offset: 3px; }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-slide { flex: 0 0 100%; scroll-snap-align: start; margin: 0; position: relative; background: #f4f4f4; }
+    .carousel-slide img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+    .carousel-slide figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 16px 10px;
+      font-size: 14px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.62)); }
+    .carousel-btn { position: absolute; top: calc(50% - 22px); transform: translateY(-50%); width: 44px; height: 44px;
+      border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); font-size: 30px; line-height: 1;
+      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; padding: 0 0 4px; }
+    .carousel-btn:hover { background: #fff; color: var(--blue); }
+    .carousel-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-btn[disabled] { opacity: .35; cursor: default; }
+    @media (max-width: 600px) { .carousel-slide figcaption { font-size: 12px; padding: 16px 12px 8px; } .carousel-btn { width: 40px; height: 40px; font-size: 26px; } }
+    .carousel-dots { display: flex; justify-content: center; gap: 4px; margin-top: 8px; }
+    .carousel-dots button { width: 24px; height: 24px; border: 0; background: none; padding: 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; }
+    .carousel-dots button::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #c4c4c4; }
+    .carousel-dots button[aria-selected="true"]::before { background: var(--blue); width: 10px; height: 10px; }
     @media (max-width: 600px) {
       .intro { flex-direction: column; gap: 20px; }
       .portrait { width: 180px; height: 180px; }
@@ -463,6 +487,43 @@
 <!-- ============================ TEACHING ========================== -->
 <section class="block" id="teaching">
   <p class="eyebrow">Teaching</p>
+
+  <!-- Photo carousel: to add a photo, copy one <figure> block below and change the image path and caption. -->
+  <div class="carousel" aria-roledescription="carousel" aria-label="Teaching photos">
+    <div class="carousel-track" tabindex="0">
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 7">
+        <img src="files/courses/aaec4514.jpg" alt="AAEC 4514 &mdash; Advanced Agribusiness Marketing" loading="lazy">
+        <figcaption>AAEC 4514 &mdash; Advanced Agribusiness Marketing</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 7">
+        <img src="files/courses/aaec3504.jpg" alt="AAEC 3504 &mdash; Marketing Agricultural Products" loading="lazy">
+        <figcaption>AAEC 3504 &mdash; Marketing Agricultural Products</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 7">
+        <img src="files/courses/aaec3454.jpg" alt="AAEC 3454 &mdash; Small Business Management and Entrepreneurship" loading="lazy">
+        <figcaption>AAEC 3454 &mdash; Small Business Management and Entrepreneurship</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 7">
+        <img src="files/courses/aaec2434.jpg" alt="AAEC 2434 &mdash; Foundations of Agribusiness" loading="lazy">
+        <figcaption>AAEC 2434 &mdash; Foundations of Agribusiness</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="5 of 7">
+        <img src="files/courses/agec115.jpg" alt="AGEC 115 &mdash; Decision Tools for Agricultural Economics and Agribusiness" loading="lazy">
+        <figcaption>AGEC 115 &mdash; Decision Tools for Agricultural Economics and Agribusiness</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="6 of 7">
+        <img src="files/courses/agec632.jpg" alt="AGEC 632 &mdash; Agribusiness Logistics" loading="lazy">
+        <figcaption>AGEC 632 &mdash; Agribusiness Logistics</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="7 of 7">
+        <img src="files/courses/rcamp.jpg" alt="R Programming Camp" loading="lazy">
+        <figcaption>R Programming Camp</figcaption>
+      </figure>
+    </div>
+    <button class="carousel-btn prev" type="button" aria-label="Previous photo">&#8249;</button>
+    <button class="carousel-btn next" type="button" aria-label="Next photo">&#8250;</button>
+    <div class="carousel-dots" role="tablist" aria-label="Choose a photo"></div>
+  </div>
 
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 4514 &mdash; Advanced Agribusiness Marketing</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
@@ -696,5 +757,40 @@
   });
 </script>
 
+<script>
+/* Teaching photo carousel: arrows, dots, keyboard and swipe */
+document.querySelectorAll('.carousel').forEach(function (c) {
+  var track = c.querySelector('.carousel-track');
+  var slides = track.querySelectorAll('.carousel-slide');
+  var prev = c.querySelector('.prev'), next = c.querySelector('.next');
+  var dotsBox = c.querySelector('.carousel-dots');
+  var dots = [];
+  slides.forEach(function (s, i) {
+    var d = document.createElement('button');
+    d.type = 'button'; d.setAttribute('role', 'tab');
+    d.setAttribute('aria-label', 'Photo ' + (i + 1) + ' of ' + slides.length);
+    d.addEventListener('click', function () { go(i); });
+    dotsBox.appendChild(d); dots.push(d);
+  });
+  function current() { return Math.round(track.scrollLeft / track.clientWidth); }
+  function go(i) {
+    var n = slides.length;
+    i = (i + n) % n;                       /* wraps around at both ends */
+    track.scrollTo({ left: i * track.clientWidth });
+  }
+  function update() {
+    var i = current();
+    dots.forEach(function (d, k) { d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+  }
+  prev.addEventListener('click', function () { go(current() - 1); });
+  next.addEventListener('click', function () { go(current() + 1); });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+  });
+  var t; track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(update, 60); });
+  update();
+});
+</script>
 </body>
 </html>
