@@ -269,7 +269,7 @@
 
 
     /* ---------- Teaching photo carousel ---------- */
-    .carousel { position: relative; margin: 6px 0 26px; }
+    .carousel { position: relative; margin: 28px 0 8px; }
     .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
       border-radius: 6px; scrollbar-width: none; outline-offset: 3px; }
     .carousel-track::-webkit-scrollbar { display: none; }
@@ -488,27 +488,6 @@
 <section class="block" id="teaching">
   <p class="eyebrow">Teaching</p>
 
-  <!-- Photo carousel: to add a photo, copy one <figure> block below and change the image path and caption. -->
-  <div class="carousel" aria-roledescription="carousel" aria-label="Teaching photos">
-    <div class="carousel-track" tabindex="0">
-      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
-        <img src="files/teaching/aaec3454-class.jpg" alt="AAEC 3454 &mdash; Small Business Management and Entrepreneurship, Spring 2026" loading="lazy">
-        <figcaption>AAEC 3454 &mdash; Small Business Management and Entrepreneurship, Spring 2026</figcaption>
-      </figure>
-      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
-        <img src="files/teaching/supply-chain-simulation.jpg" alt="Students run an agri-food supply chain simulation in Zensimu, Fall 2025" loading="lazy">
-        <figcaption>Students run an agri-food supply chain simulation in Zensimu, Fall 2025</figcaption>
-      </figure>
-      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
-        <img src="files/teaching/guest-speaker.jpg" alt="Industry guest speaker from Whitley&rsquo;s Peanuts shares his agribusiness journey, Fall 2025" loading="lazy">
-        <figcaption>Industry guest speaker from Whitley&rsquo;s Peanuts shares his agribusiness journey, Fall 2025</figcaption>
-      </figure>
-    </div>
-    <button class="carousel-btn prev" type="button" aria-label="Previous photo">&#8249;</button>
-    <button class="carousel-btn next" type="button" aria-label="Next photo">&#8250;</button>
-    <div class="carousel-dots" role="tablist" aria-label="Choose a photo"></div>
-  </div>
-
   <div class="course">
     <div class="course-row"><span class="course-name">AAEC 4514 &mdash; Advanced Agribusiness Marketing</span><span class="course-role">Instructor &middot; Virginia Tech &middot; 2025</span></div>
     <p class="course-note">Project-based course: student teams build a strategic marketing plan for an agri-food product or service. 45 students.</p>
@@ -714,6 +693,26 @@
   </div>
   <div class="course">
     <div class="course-row"><span class="course-name">AGEC 615 &mdash; Global Agricultural Development; AGEC 120 &mdash; Agricultural Economics and Agribusiness</span><span class="course-role">Teaching assistant &middot; Kansas State &middot; 2019</span></div>
+  </div>
+  <!-- Photo carousel: to add a photo, copy one <figure> block below and change the image path and caption. -->
+  <div class="carousel" aria-roledescription="carousel" aria-label="Teaching photos">
+    <div class="carousel-track" tabindex="0">
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <img src="files/teaching/aaec3454-class.jpg" alt="AAEC 3454 &mdash; Small Business Management and Entrepreneurship, Spring 2026" loading="lazy">
+        <figcaption>AAEC 3454 &mdash; Small Business Management and Entrepreneurship, Spring 2026</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+        <img src="files/teaching/supply-chain-simulation.jpg" alt="Students run an agri-food supply chain simulation in Zensimu, Fall 2025" loading="lazy">
+        <figcaption>Students run an agri-food supply chain simulation in Zensimu, Fall 2025</figcaption>
+      </figure>
+      <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+        <img src="files/teaching/guest-speaker.jpg" alt="Industry guest speaker from Whitley&rsquo;s Peanuts shares his agribusiness journey, Fall 2025" loading="lazy">
+        <figcaption>Industry guest speaker from Whitley&rsquo;s Peanuts shares his agribusiness journey, Fall 2025</figcaption>
+      </figure>
+    </div>
+    <button class="carousel-btn prev" type="button" aria-label="Previous photo">&#8249;</button>
+    <button class="carousel-btn next" type="button" aria-label="Next photo">&#8250;</button>
+    <div class="carousel-dots" role="tablist" aria-label="Choose a photo"></div>
   </div>
 </section>
 
