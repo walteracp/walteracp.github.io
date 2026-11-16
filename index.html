@@ -268,6 +268,17 @@
     }
 
 
+
+    /* ---------- Posters ---------- */
+    .poster-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+    .poster-card { display: flex; flex-direction: column; }
+    .poster-thumb { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3;
+      background: #f3f4f6; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+    .poster-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; transition: transform .2s ease; }
+    .poster-thumb:hover img { transform: scale(1.03); }
+    .poster-thumb:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .poster-card .buttons { margin-top: auto; }
+    @media (max-width: 600px) { .poster-grid { grid-template-columns: 1fr; } }
     /* ---------- Teaching photo carousel ---------- */
     .carousel { position: relative; margin: 28px 0 8px; }
     .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
@@ -309,6 +320,7 @@
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
+    <li><a href="#posters">Posters</a></li>
     <li><a href="#teaching">Teaching</a></li>
     <li>
       <details class="dropdown">
@@ -482,6 +494,38 @@
     <p class="work-authors">with S.N. Adams and L. Rossi &nbsp;&middot;&nbsp; <em>HortScience</em> 54(5): 787&ndash;792, 2019</p>
     <div class="work-links"><a href="https://doi.org/10.21273/HORTSCI13868-19" target="_blank" rel="noopener">Article (DOI)</a></div>
   </article>
+</section>
+
+<!-- ============================ POSTERS =========================== -->
+<section class="block" id="posters">
+  <p class="eyebrow">Posters</p>
+  <!-- To add a poster: put the PDF and a JPG preview in files/posters/ and copy one <article> block. -->
+  <div class="poster-grid">
+    <article class="poster-card">
+      <a class="poster-thumb" href="files/posters/corn-acreage-forecasting.pdf" target="_blank" rel="noopener" aria-label="Open poster: In-Season U.S. Corn Acreage Forecasting Using Machine Learning (PDF)">
+        <img src="files/posters/corn-acreage-forecasting.jpg" alt="Research poster: In-Season U.S. Corn Acreage Forecasting Using Machine Learning" loading="lazy">
+      </a>
+      <p class="work-title">In-Season U.S. Corn Acreage Forecasting Using Machine Learning</p>
+      <p class="work-authors">with N.P. Hendricks</p>
+      <div class="buttons"><a href="files/posters/corn-acreage-forecasting.pdf" target="_blank" rel="noopener">View Poster (PDF)</a></div>
+    </article>
+    <article class="poster-card">
+      <a class="poster-thumb" href="files/posters/india-rice-export-bans.pdf" target="_blank" rel="noopener" aria-label="Open poster: Effects of Non-Tariff Trade Barriers in Rice Markets: The Case of Rice Export Ban Imposed by India (PDF)">
+        <img src="files/posters/india-rice-export-bans.jpg" alt="Research poster: Effects of Non-Tariff Trade Barriers in Rice Markets: The Case of Rice Export Ban Imposed by India" loading="lazy">
+      </a>
+      <p class="work-title">Effects of Non-Tariff Trade Barriers in Rice Markets: The Case of Rice Export Ban Imposed by India</p>
+      <p class="work-authors">with N.P. Hendricks</p>
+      <div class="buttons"><a href="files/posters/india-rice-export-bans.pdf" target="_blank" rel="noopener">View Poster (PDF)</a></div>
+    </article>
+    <article class="poster-card">
+      <a class="poster-thumb" href="files/posters/grain-supply-forecasting.pdf" target="_blank" rel="noopener" aria-label="Open poster: Forecasting Long-Term Grain Supply of Low- and Middle-Income Countries (PDF)">
+        <img src="files/posters/grain-supply-forecasting.jpg" alt="Research poster: Forecasting Long-Term Grain Supply of Low- and Middle-Income Countries" loading="lazy">
+      </a>
+      <p class="work-title">Forecasting Long-Term Grain Supply of Low- and Middle-Income Countries</p>
+      <p class="work-authors">with N.P. Hendricks, Y.A. Zereyesus, and J. Kee &nbsp;&middot;&nbsp; 2024</p>
+      <div class="buttons"><a href="files/posters/grain-supply-forecasting.pdf" target="_blank" rel="noopener">View Poster (PDF)</a></div>
+    </article>
+  </div>
 </section>
 
 <!-- ============================ TEACHING ========================== -->
